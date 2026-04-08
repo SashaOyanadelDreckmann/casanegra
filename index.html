@@ -738,18 +738,30 @@
 
             .collage-gallery {
                 gap: 1rem;
-                display: flex;
+                display: flex !important;
+                grid-template-columns: unset !important;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
+                padding-bottom: 1rem;
             }
 
             .collage-gallery img {
-                flex: 0 0 100%;
+                flex: 0 0 85vw;
                 scroll-snap-align: start;
                 height: 300px;
                 object-fit: cover;
                 border-radius: 4px;
+            }
+
+            #cat-jacuzzi .collage-gallery,
+            #cat-montenegro .collage-gallery,
+            #cat-bohemia .collage-gallery,
+            #cat-lastarria .collage-gallery,
+            #cat-sala .collage-gallery,
+            #cat-workspace .collage-gallery {
+                display: flex !important;
+                grid-template-columns: unset !important;
             }
 
             .formulario-section {
