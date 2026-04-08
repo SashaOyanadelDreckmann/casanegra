@@ -975,16 +975,16 @@
             </div>
 
             <!-- Solo Jacuzzi Premium -->
-            <div class="suite-card" onclick="openReservaModal('🌟 Solo Jacuzzi Premium', 20000)" style="border: 2px solid #FFD700;">
+            <div class="suite-card" onclick="openReservaModal('🌟 Jacuzzi Premium', 25000)" style="border: 2px solid #FFD700;">
                 <img src="iloveimg-converted/IMG_8547.jpg" alt="Jacuzzi Premium" class="suite-image">
                 <div class="suite-content">
                     <div class="suite-tag" style="background: #FFD700; color: #000;">✨ PREMIUM</div>
                     <div class="suite-title">Jacuzzi Premium</div>
-                    <div class="suite-price">$20.000</div>
-                    <p class="suite-description">Acceso exclusivo al jacuzzi privado sin necesidad de suite. Experiencia de lujo sin hospedaje.</p>
+                    <div class="suite-price">$25.000</div>
+                    <p class="suite-description">2 horas exclusivas en nuestro jacuzzi privado sin hospedaje. Máximo 2 personas. Personas adicionales: $15.000 c/u</p>
                     <ul class="suite-features">
-                        <li>Jacuzzi privado 2 horas</li>
-                        <li>Acceso a cambios</li>
+                        <li>2 horas jacuzzi privado</li>
+                        <li>Máximo 2 personas</li>
                         <li>Toallas premium</li>
                         <li>Bebida de bienvenida</li>
                     </ul>
@@ -1223,12 +1223,6 @@
         <p style="text-align: center; max-width: 700px; margin: 0 auto 4rem; font-size: 0.9rem; color: var(--gris-claro); font-style: italic;">Puedes contratarlos al hacer tu reserva o directamente al llegar a Casa Negra.</p>
 
         <div class="servicios-grid">
-            <div class="servicio-card servicio-destacado">
-                <div class="servicio-titulo">Jacuzzi Solo Para 2 Personas</div>
-                <div class="servicio-precio">$25.000</div>
-                <p class="servicio-descripcion">Disfruta de 2 horas exclusivas en nuestro jacuzzi privado. Sin necesidad de hospedarse — servicio disponible para cualquier visitante.</p>
-            </div>
-
             <div class="servicio-card">
                 <div class="servicio-titulo">Jacuzzi Privado</div>
                 <div class="servicio-precio">$20.000</div>
@@ -1260,7 +1254,7 @@
             </div>
 
             <div class="servicio-card">
-                <div class="servicio-titulo">Planchado de Ropa</div>
+                <div class="servicio-titulo">Planchado + Lavado de Ropa</div>
                 <div class="servicio-precio">$20.000</div>
                 <p class="servicio-descripcion">Servicio profesional de planchado y cuidado de prendas.</p>
             </div>
@@ -1362,9 +1356,9 @@
                         </label>
 
                         <label class="checkbox-item">
-                            <input type="checkbox" value="20000" class="servicio-checkbox" data-nombre="Planchado de Ropa">
+                            <input type="checkbox" value="20000" class="servicio-checkbox" data-nombre="Planchado + Lavado de Ropa">
                             <div class="checkbox-content">
-                                <div class="checkbox-titulo">Planchado de Ropa</div>
+                                <div class="checkbox-titulo">Planchado + Lavado de Ropa</div>
                                 <div class="checkbox-descripcion">Servicio profesional de planchado</div>
                             </div>
                             <div class="checkbox-precio">$20.000</div>
@@ -1379,14 +1373,6 @@
                             <div class="checkbox-precio">$43.000</div>
                         </label>
 
-                        <label class="checkbox-item">
-                            <input type="checkbox" value="25000" class="servicio-checkbox" data-nombre="Jacuzzi Solo (2 personas)">
-                            <div class="checkbox-content">
-                                <div class="checkbox-titulo">Jacuzzi Solo Para 2 Personas</div>
-                                <div class="checkbox-descripcion">2 horas privadas, máximo 2 personas</div>
-                            </div>
-                            <div class="checkbox-precio">$25.000</div>
-                        </label>
                     </div>
 
                     <div class="form-buttons">
@@ -1450,16 +1436,22 @@
                 <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--gris); margin-bottom: 1rem; font-weight: 600;">Ubicación</div>
                 <p style="margin: 0;">Ñuñoa, Santiago. Acceso mediante código de puerta.</p>
             </div>
+
+            <div>
+                <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--gris); margin-bottom: 1rem; font-weight: 600;">Instagram</div>
+                <a href="https://instagram.com/casanegra.cl" target="_blank" style="font-size: 1.1rem; color: var(--negro); text-decoration: none; border-bottom: 1px solid var(--negro);">@casanegra.cl</a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <p>Casa Negra - Premium Guest Room en Ñuñoa</p>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">
+    <footer style="background: #000000 !important; color: #f5f1ed;">
+        <p style="color: #f5f1ed;">Casa Negra - Premium Guest Room en Ñuñoa</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #f5f1ed;">
+            📍 Instagram:
             <a href="https://instagram.com/casanegra.cl" target="_blank" style="color: #FFD700; text-decoration: none; font-weight: 600;">@casanegra.cl</a>
         </p>
-        <p style="margin-top: 1rem; font-size: 0.8rem;">Política de Cancelación: Reembolso total si se cancela con 5 días de anticipación.</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #b8b0a8;">Política de Cancelación: Reembolso total si se cancela con 5 días de anticipación.</p>
     </footer>
 
     <script>
@@ -1736,6 +1728,13 @@
             document.body.style.overflow = 'auto';
         }
 
+        function cambiarSuiteEnModal() {
+            const select = document.getElementById('modalSuiteSelect');
+            const [suiteName, suitePrice] = select.value.split('|');
+            document.getElementById('modalSuiteName').value = suiteName;
+            document.getElementById('modalSuitePrice').value = suitePrice;
+        }
+
         document.getElementById('reservaModal')?.addEventListener('click', function(e) {
             if (e.target === this) {
                 closeReservaModal();
@@ -1749,9 +1748,19 @@
             <button class="reserva-modal-close" onclick="closeReservaModal()">✕</button>
 
             <h2 style="margin-bottom: 1.5rem; color: var(--negro);">Reserva Rápida</h2>
-            <p style="color: var(--gris); margin-bottom: 2rem;"><strong id="modalSuiteName"></strong></p>
 
             <form id="reservaModalForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div>
+                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Selecciona Suite o Servicio</label>
+                    <select id="modalSuiteSelect" onchange="cambiarSuiteEnModal()" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro); cursor: pointer;" required>
+                        <option value="">-- Elige una opción --</option>
+                        <option value="Suite Montenegro|65000">Suite Montenegro - $65.000</option>
+                        <option value="Suite Bohemia|32000">Suite Bohemia - $32.000</option>
+                        <option value="Suite Lastarría|44000">Suite Lastarría - $44.000</option>
+                        <option value="🌟 Jacuzzi Premium|25000">Jacuzzi Premium - $25.000</option>
+                    </select>
+                </div>
+
                 <input type="hidden" id="modalSuiteName" value="">
                 <input type="hidden" id="modalSuitePrice" value="">
 
