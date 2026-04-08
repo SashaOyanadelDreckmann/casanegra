@@ -741,13 +741,20 @@
                 display: flex !important;
                 grid-template-columns: unset !important;
                 overflow-x: auto;
+                overflow-y: hidden;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
                 padding-bottom: 1rem;
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0 1rem 1rem 1rem;
+                margin-left: -1rem;
+                margin-right: -1rem;
             }
 
             .collage-gallery img {
-                flex: 0 0 85vw;
+                flex: 0 0 calc(100vw - 2rem);
                 scroll-snap-align: start;
                 height: 300px;
                 object-fit: cover;
