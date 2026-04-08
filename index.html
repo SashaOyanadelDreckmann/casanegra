@@ -639,15 +639,19 @@
         /* Responsive */
         @media (max-width: 480px) {
             header {
-                padding: 1rem 1rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .logo {
+                font-size: 1rem;
             }
 
             nav {
-                gap: 1rem;
+                gap: 0.8rem;
             }
 
             .nav-link {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
             }
 
             section {
@@ -657,6 +661,8 @@
             .hero {
                 padding: 4rem 1rem 3rem;
                 margin-top: 70px;
+                background-position: center 30%;
+                background-size: cover;
             }
 
             .hero h1 {
@@ -732,6 +738,18 @@
 
             .collage-gallery {
                 gap: 1rem;
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .collage-gallery img {
+                flex: 0 0 100%;
+                scroll-snap-align: start;
+                height: 300px;
+                object-fit: cover;
+                border-radius: 4px;
             }
 
             .formulario-section {
@@ -988,26 +1006,46 @@
             /* Grid layouts por categoría - optimizado sin filas vacías */
             #cat-jacuzzi .collage-gallery {
                 grid-template-columns: repeat(4, 1fr);
+                display: grid;
+                overflow-x: visible;
             }
 
             #cat-montenegro .collage-gallery {
                 grid-template-columns: repeat(4, 1fr);
+                display: grid;
+                overflow-x: visible;
             }
 
             #cat-bohemia .collage-gallery {
                 grid-template-columns: repeat(2, 1fr);
+                display: grid;
+                overflow-x: visible;
             }
 
             #cat-lastarria .collage-gallery {
                 grid-template-columns: repeat(3, 1fr);
+                display: grid;
+                overflow-x: visible;
             }
 
             #cat-sala .collage-gallery {
                 grid-template-columns: repeat(2, 1fr);
+                display: grid;
+                overflow-x: visible;
             }
 
             #cat-workspace .collage-gallery {
                 grid-template-columns: repeat(2, 1fr);
+                display: grid;
+                overflow-x: visible;
+            }
+
+            @media (min-width: 769px) {
+                .collage-gallery img {
+                    height: auto;
+                    flex: auto;
+                    scroll-snap-align: none;
+                }
             }
 
             .collage-gallery img {
@@ -1376,6 +1414,9 @@
     <!-- Footer -->
     <footer>
         <p>Casa Negra - Premium Guest Room en Ñuñoa</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            <a href="https://instagram.com/casanegra.cl" target="_blank" style="color: #FFD700; text-decoration: none; font-weight: 600;">@casanegra.cl</a>
+        </p>
         <p style="margin-top: 1rem; font-size: 0.8rem;">Política de Cancelación: Reembolso total si se cancela con 5 días de anticipación.</p>
     </footer>
 
