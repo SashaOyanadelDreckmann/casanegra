@@ -921,7 +921,7 @@
 
         <div class="suites-grid">
             <!-- Montenegro -->
-            <div class="suite-card" onclick="selectSuite('montenegro', 'Suite Montenegro', 65000)">
+            <div class="suite-card" onclick="openReservaModal('Suite Montenegro', 65000)">
                 <img src="iloveimg-converted/IMG_8614.jpg" alt="Suite Montenegro" class="suite-image" id="img-montenegro">
                 <div class="suite-content">
                     <div class="suite-tag">Matrimonial</div>
@@ -939,7 +939,7 @@
             </div>
 
             <!-- Bohemia -->
-            <div class="suite-card" onclick="selectSuite('bohemia', 'Suite Bohemia', 32000)">
+            <div class="suite-card" onclick="openReservaModal('Suite Bohemia', 32000)">
                 <img src="iloveimg-converted/IMG_8726.jpg" alt="Suite Bohemia" class="suite-image" id="img-bohemia">
                 <div class="suite-content">
                     <div class="suite-tag">Individual</div>
@@ -957,7 +957,7 @@
             </div>
 
             <!-- Lastarría -->
-            <div class="suite-card" onclick="selectSuite('lastarria', 'Suite Lastarría', 44000)">
+            <div class="suite-card" onclick="openReservaModal('Suite Lastarría', 44000)">
                 <img src="iloveimg-converted/IMG_8689.jpg" alt="Suite Lastarría" class="suite-image" id="img-lastarria">
                 <div class="suite-content">
                     <div class="suite-tag">Individual + Escritorio</div>
@@ -971,6 +971,24 @@
                         <li>WiFi de alta velocidad</li>
                     </ul>
                     <button class="suite-select-btn">Seleccionar</button>
+                </div>
+            </div>
+
+            <!-- Solo Jacuzzi Premium -->
+            <div class="suite-card" onclick="openReservaModal('🌟 Solo Jacuzzi Premium', 20000)" style="border: 2px solid #FFD700;">
+                <img src="iloveimg-converted/IMG_8547.jpg" alt="Jacuzzi Premium" class="suite-image">
+                <div class="suite-content">
+                    <div class="suite-tag" style="background: #FFD700; color: #000;">✨ PREMIUM</div>
+                    <div class="suite-title">Jacuzzi Premium</div>
+                    <div class="suite-price">$20.000</div>
+                    <p class="suite-description">Acceso exclusivo al jacuzzi privado sin necesidad de suite. Experiencia de lujo sin hospedaje.</p>
+                    <ul class="suite-features">
+                        <li>Jacuzzi privado 2 horas</li>
+                        <li>Acceso a cambios</li>
+                        <li>Toallas premium</li>
+                        <li>Bebida de bienvenida</li>
+                    </ul>
+                    <button class="suite-select-btn">Reservar</button>
                 </div>
             </div>
         </div>
@@ -1698,6 +1716,181 @@
             document.addEventListener('DOMContentLoaded', typeWriter);
         } else {
             typeWriter();
+        }
+
+        // MODAL DE RESERVA RÁPIDA
+        function openReservaModal(suiteName, suitePrice) {
+            const modal = document.getElementById('reservaModal');
+            document.getElementById('modalSuiteName').textContent = suiteName;
+            document.getElementById('modalSuiteName').value = suiteName;
+            document.getElementById('modalSuitePrice').value = suitePrice;
+            document.getElementById('suiteName').value = suiteName;
+            document.getElementById('suitePrice').value = suitePrice;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReservaModal() {
+            const modal = document.getElementById('reservaModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('reservaModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeReservaModal();
+            }
+        });
+    </script>
+
+    <!-- MODAL DE RESERVA RÁPIDA -->
+    <div id="reservaModal" class="reserva-modal">
+        <div class="reserva-modal-content">
+            <button class="reserva-modal-close" onclick="closeReservaModal()">✕</button>
+
+            <h2 style="margin-bottom: 1.5rem; color: var(--negro);">Reserva Rápida</h2>
+            <p style="color: var(--gris); margin-bottom: 2rem;"><strong id="modalSuiteName"></strong></p>
+
+            <form id="reservaModalForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <input type="hidden" id="modalSuiteName" value="">
+                <input type="hidden" id="modalSuitePrice" value="">
+
+                <div>
+                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Nombre Completo</label>
+                    <input type="text" id="modalNombre" placeholder="Tu nombre" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required>
+                </div>
+
+                <div>
+                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Email</label>
+                    <input type="email" id="modalEmail" placeholder="tu@email.com" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required>
+                </div>
+
+                <div>
+                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Teléfono</label>
+                    <input type="tel" id="modalTelefono" placeholder="+56 9 XXXX XXXX" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Entrada</label>
+                        <input type="date" id="modalFechaEntrada" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required>
+                    </div>
+                    <div>
+                        <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Salida</label>
+                        <input type="date" id="modalFechaSalida" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required>
+                    </div>
+                </div>
+
+                <div style="background: var(--beige-claro); padding: 1rem; border-radius: 4px; border: 1px solid var(--gris);">
+                    <p style="color: var(--negro); margin: 0; font-weight: 600;">Total: <span id="modalTotal" style="color: #FFD700;">$0</span></p>
+                </div>
+
+                <button type="button" onclick="enviarReservaModal()" style="background: #FFD700; color: #000; padding: 1rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                    Confirmar Reserva
+                </button>
+                <button type="button" onclick="closeReservaModal()" style="background: var(--beige); color: var(--negro); padding: 1rem; border: 1px solid var(--gris); border-radius: 4px; font-weight: 600; cursor: pointer;">
+                    Cancelar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .reserva-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .reserva-modal-content {
+            background: var(--beige);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .reserva-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--negro);
+        }
+
+        @media (max-width: 480px) {
+            .reserva-modal-content {
+                padding: 1.5rem;
+                max-height: 95vh;
+            }
+        }
+    </style>
+
+    <script>
+        function enviarReservaModal() {
+            const nombre = document.getElementById('modalNombre').value;
+            const email = document.getElementById('modalEmail').value;
+            const telefono = document.getElementById('modalTelefono').value;
+            const suite = document.getElementById('modalSuiteName').textContent;
+            const fechaEntrada = document.getElementById('modalFechaEntrada').value;
+            const fechaSalida = document.getElementById('modalFechaSalida').value;
+            const suitePrice = parseInt(document.getElementById('modalSuitePrice').value);
+
+            if (!nombre || !email || !telefono || !fechaEntrada || !fechaSalida) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            // Calcular total
+            const entrada = new Date(fechaEntrada);
+            const salida = new Date(fechaSalida);
+            const nights = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
+            const total = suitePrice * nights;
+
+            // Enviar reserva
+            const reservaData = {
+                name: nombre,
+                email: email,
+                phone: telefono,
+                suite: suite,
+                checkIn: fechaEntrada,
+                checkOut: fechaSalida,
+                nights: nights,
+                guests: '1',
+                services: 'Ninguno',
+                total: total
+            };
+
+            fetch('/api/reservar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reservaData)
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    alert(`✅ ¡Reserva confirmada!\n\nTe hemos enviado un email de confirmación a ${email}`);
+                    closeReservaModal();
+                } else {
+                    alert('❌ Error: ' + result.error);
+                }
+            })
+            .catch(err => alert('❌ Error de conexión'));
         }
     </script>
 </body>
