@@ -1592,7 +1592,7 @@
             e.preventDefault();
         });
 
-        function enviarReserva(event) {
+        async function enviarReserva(event) {
             event.preventDefault();
 
             const nombre = document.getElementById('nombre').value;
@@ -1601,38 +1601,56 @@
             const suite = document.getElementById('suiteName').value;
             const fechaEntrada = document.getElementById('fechaEntrada').value;
             const fechaSalida = document.getElementById('fechaSalida').value;
-            const total = document.getElementById('totalPagar').textContent;
+            const total = document.getElementById('totalPagar').textContent.replace('$', '').replace(/\./g, '');
 
-            let serviciosText = 'Sin servicios adicionales';
+            // Calcular noches
+            const entrada = new Date(fechaEntrada);
+            const salida = new Date(fechaSalida);
+            const nights = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
+
+            // Obtener cantidad de huéspedes
+            const guests = document.getElementById('huespedes')?.value || '1';
+
+            let servicios = [];
             if (selectedServices.length > 0) {
-                serviciosText = selectedServices.map(s => `${s.nombre}: $${s.precio.toLocaleString()}`).join('\n');
+                servicios = selectedServices.map(s => s.nombre).join(', ');
             }
 
-            const mensaje = `
-NUEVA RESERVA - CASA NEGRA
+            const reservaData = {
+                name: nombre,
+                email: email,
+                phone: telefono,
+                suite: suite,
+                checkIn: fechaEntrada,
+                checkOut: fechaSalida,
+                nights: nights,
+                guests: guests,
+                services: servicios || 'Ninguno',
+                total: total
+            };
 
-Cliente: ${nombre}
-Email: ${email}
-Teléfono: ${telefono}
+            try {
+                const response = await fetch('/api/reservar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(reservaData)
+                });
 
-DETALLES DE RESERVA
-Suite: ${suite}
-Entrada: ${fechaEntrada}
-Salida: ${fechaSalida}
+                const result = await response.json();
 
-SERVICIOS ADICIONALES
-${serviciosText}
-
-TOTAL A PAGAR: $${total} CLP
-
-Método de pago: Transferencia bancaria
-Se enviarán datos bancarios por correo.
-
-Política de cancelación: Reembolso si se avisa 5 días antes.
-            `;
-
-            const mailtoLink = `mailto:casanegra.contacto@gmail.com?subject=Reserva%20Casa%20Negra%20-%20${encodeURIComponent(nombre)}&body=${encodeURIComponent(mensaje)}`;
-            window.location.href = mailtoLink;
+                if (response.ok) {
+                    alert(`✅ ¡Reserva confirmada!\n\nTe hemos enviado un email de confirmación a ${email}.\n\nTu evento ha sido agregado al calendario.`);
+                    document.getElementById('reservaForm').reset();
+                    resetForm();
+                } else {
+                    alert(`❌ Error: ${result.error}\n\nPor favor intenta de nuevo o contacta directamente a casanegra.contacto.cl@gmail.com`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Error de conexión. Por favor intenta de nuevo.');
+            }
         }
 
         // Efecto máquina de escribir
