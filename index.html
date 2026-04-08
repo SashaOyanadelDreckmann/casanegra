@@ -1134,14 +1134,32 @@
             }
 
             @media (max-width: 1024px) {
+                #cat-jacuzzi .collage-gallery,
+                #cat-montenegro .collage-gallery {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+                #cat-lastarria .collage-gallery {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
                 .collage-gallery {
                     grid-template-columns: repeat(2, 1fr);
                 }
             }
 
             @media (max-width: 768px) {
+                #cat-jacuzzi .collage-gallery,
+                #cat-montenegro .collage-gallery {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                #cat-lastarria .collage-gallery {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
                 .collage-gallery {
-                    grid-template-columns: 1fr;
+                    grid-template-columns: repeat(2, 1fr);
                 }
             }
 
