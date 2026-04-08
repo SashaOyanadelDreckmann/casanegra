@@ -1454,8 +1454,8 @@
                 serviciosContainer.style.display = 'block';
             }
 
-            // Limpiar checkboxes
-            document.querySelectorAll('.servicio-check').forEach(cb => cb.checked = false);
+            // Limpiar cantidades de servicios
+            document.querySelectorAll('.servicio-cantidad').forEach(input => input.value = '0');
 
             // Actualizar información de la reserva
             document.getElementById('modalReservaInfo').textContent = suiteName;
@@ -1500,13 +1500,23 @@
                 } else {
                     tarifaBase = suitePrice * noches;
                 }
+
+                // Actualizar máximo de noches para los inputs de servicios
+                document.querySelectorAll('.servicio-cantidad').forEach(input => {
+                    input.max = noches;
+                });
             }
 
-            // Calcular servicios adicionales
-            document.querySelectorAll('.servicio-check:checked').forEach(checkbox => {
-                const precio = parseInt(checkbox.value);
-                serviciosTotal += precio;
-                serviciosDetalles.push(checkbox.dataset.nombre + ': $' + precio.toLocaleString());
+            // Calcular servicios adicionales - ahora con cantidades
+            document.querySelectorAll('.servicio-cantidad').forEach(input => {
+                const cantidad = parseInt(input.value) || 0;
+                if (cantidad > 0) {
+                    const precio = parseInt(input.dataset.precio);
+                    const servicioTotal = precio * cantidad;
+                    serviciosTotal += servicioTotal;
+                    const nombre = input.dataset.nombre;
+                    serviciosDetalles.push(nombre + ' (x' + cantidad + '): $' + servicioTotal.toLocaleString());
+                }
             });
 
             const total = tarifaBase + serviciosTotal;
@@ -1589,61 +1599,74 @@
 
                 <!-- Servicios adicionales (solo para suites) -->
                 <div id="serviciosContainer" style="display: none;">
-                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 1rem;">Servicios Adicionales</label>
-                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                        <label style="display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem; background: var(--beige-claro); border-radius: 4px; cursor: pointer; transition: all 300ms;">
-                            <input type="checkbox" class="servicio-check" value="20000" data-nombre="Jacuzzi Privado 2h" onchange="calcularTotalModal()" style="width: 18px; height: 18px; cursor: pointer;">
+                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Servicios Adicionales</label>
+                    <p style="color: var(--gris); font-size: 0.85rem; margin-bottom: 1.5rem; padding: 0.8rem; background: rgba(255, 215, 0, 0.08); border-radius: 4px; border-left: 2px solid #FFD700;">Selecciona la cantidad de veces que deseas cada servicio. Puedes distribuir estos servicios en los diferentes días de tu hospedaje según lo prefieras. Por ejemplo, si tienes 3 noches, puedes contratar desayuno para 2 días o limpiezas en diferentes fechas.</p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
                             <div style="flex: 1;">
                                 <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Jacuzzi Privado 2h</div>
                                 <div style="color: var(--gris); font-size: 0.85rem;">Acceso por 2 horas</div>
                             </div>
-                            <div style="color: var(--negro); font-weight: 600;">$20.000</div>
-                        </label>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="number" class="servicio-cantidad" data-nombre="Jacuzzi Privado 2h" data-precio="20000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
+                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$20.000</span>
+                            </div>
+                        </div>
 
-                        <label style="display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem; background: var(--beige-claro); border-radius: 4px; cursor: pointer; transition: all 300ms;">
-                            <input type="checkbox" class="servicio-check" value="8000" data-nombre="Desayuno" onchange="calcularTotalModal()" style="width: 18px; height: 18px; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
                             <div style="flex: 1;">
                                 <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Desayuno</div>
                                 <div style="color: var(--gris); font-size: 0.85rem;">Aviso con 1 día de anticipación</div>
                             </div>
-                            <div style="color: var(--negro); font-weight: 600;">$8.000</div>
-                        </label>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="number" class="servicio-cantidad" data-nombre="Desayuno" data-precio="8000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
+                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$8.000</span>
+                            </div>
+                        </div>
 
-                        <label style="display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem; background: var(--beige-claro); border-radius: 4px; cursor: pointer; transition: all 300ms;">
-                            <input type="checkbox" class="servicio-check" value="10000" data-nombre="Limpieza y Cambio de Sábanas" onchange="calcularTotalModal()" style="width: 18px; height: 18px; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
                             <div style="flex: 1;">
                                 <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Limpieza y Cambio de Sábanas</div>
                                 <div style="color: var(--gris); font-size: 0.85rem;">Servicio completo</div>
                             </div>
-                            <div style="color: var(--negro); font-weight: 600;">$10.000</div>
-                        </label>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="number" class="servicio-cantidad" data-nombre="Limpieza y Cambio de Sábanas" data-precio="10000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
+                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$10.000</span>
+                            </div>
+                        </div>
 
-                        <label style="display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem; background: var(--beige-claro); border-radius: 4px; cursor: pointer; transition: all 300ms;">
-                            <input type="checkbox" class="servicio-check" value="10000" data-nombre="Lavandería" onchange="calcularTotalModal()" style="width: 18px; height: 18px; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
                             <div style="flex: 1;">
                                 <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Lavandería</div>
                                 <div style="color: var(--gris); font-size: 0.85rem;">Lavado de ropa o acceso a lavadora</div>
                             </div>
-                            <div style="color: var(--negro); font-weight: 600;">$10.000</div>
-                        </label>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="number" class="servicio-cantidad" data-nombre="Lavandería" data-precio="10000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
+                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$10.000</span>
+                            </div>
+                        </div>
 
-                        <label style="display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem; background: var(--beige-claro); border-radius: 4px; cursor: pointer; transition: all 300ms;">
-                            <input type="checkbox" class="servicio-check" value="20000" data-nombre="Planchado + Lavado de Ropa" onchange="calcularTotalModal()" style="width: 18px; height: 18px; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
                             <div style="flex: 1;">
                                 <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Planchado + Lavado de Ropa</div>
                                 <div style="color: var(--gris); font-size: 0.85rem;">Servicio profesional</div>
                             </div>
-                            <div style="color: var(--negro); font-weight: 600;">$20.000</div>
-                        </label>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="number" class="servicio-cantidad" data-nombre="Planchado + Lavado de Ropa" data-precio="20000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
+                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$20.000</span>
+                            </div>
+                        </div>
 
-                        <label style="display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem; background: var(--beige-claro); border-radius: 4px; cursor: pointer; transition: all 300ms;">
-                            <input type="checkbox" class="servicio-check" value="43000" data-nombre="Experiencia Completa Jacuzzi" onchange="calcularTotalModal()" style="width: 18px; height: 18px; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
                             <div style="flex: 1;">
                                 <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Experiencia Completa Jacuzzi</div>
                                 <div style="color: var(--gris); font-size: 0.85rem;">Jacuzzi + vino + tabla para picar</div>
                             </div>
-                            <div style="color: var(--negro); font-weight: 600;">$43.000</div>
-                        </label>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="number" class="servicio-cantidad" data-nombre="Experiencia Completa Jacuzzi" data-precio="43000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
+                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$43.000</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1773,12 +1796,17 @@
 
             const nights = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
 
-            // Calcular servicios
+            // Calcular servicios - ahora con cantidades
             let servicios = [];
             let serviciosTotal = 0;
-            document.querySelectorAll('.servicio-check:checked').forEach(checkbox => {
-                servicios.push(checkbox.dataset.nombre);
-                serviciosTotal += parseInt(checkbox.value);
+            document.querySelectorAll('.servicio-cantidad').forEach(input => {
+                const cantidad = parseInt(input.value) || 0;
+                if (cantidad > 0) {
+                    const nombre = input.dataset.nombre;
+                    const precio = parseInt(input.dataset.precio);
+                    servicios.push(nombre + ' (x' + cantidad + ')');
+                    serviciosTotal += precio * cantidad;
+                }
             });
 
             const serviciosStr = servicios.length > 0 ? servicios.join(', ') : 'Ninguno';
