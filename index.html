@@ -102,12 +102,39 @@
 
         .logo {
             font-family: 'Roboto Slab', serif;
-            font-size: 1.5rem;
+            font-size: 1rem;
             color: #1a1a1a;
             font-weight: 900;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             font-style: normal;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15rem;
+            line-height: 1;
+        }
+
+        .logo-triangle {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 18px solid #1a1a1a;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo-text span {
+            display: block;
+            letter-spacing: 0.12em;
+            width: 3.2em;
+            text-align: center;
         }
 
         nav {
@@ -153,8 +180,38 @@
 
         .hero h1 {
             color: #1a1a1a;
-            font-size: clamp(5rem, 15vw, 8rem);
+            font-size: clamp(4rem, 12vw, 7rem);
             margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 0;
+        }
+
+        .hero-title-triangle {
+            width: 0;
+            height: 0;
+            border-left: clamp(40px, 8vw, 80px) solid transparent;
+            border-right: clamp(40px, 8vw, 80px) solid transparent;
+            border-bottom: clamp(36px, 7vw, 72px) solid #1a1a1a;
+        }
+
+        .hero-title-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            letter-spacing: 0.15em;
+        }
+
+        .hero-title-text span {
+            display: block;
+            width: 4.2em;
+            text-align: center;
+            letter-spacing: 0.15em;
         }
 
         .typewriter-container {
@@ -901,7 +958,13 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <div class="logo">Casa Negra</div>
+            <div class="logo">
+                <div class="logo-triangle"></div>
+                <div class="logo-text">
+                    <span>Casa</span>
+                    <span>Negra</span>
+                </div>
+            </div>
             <nav>
                 <a href="#suites" class="nav-link">Suites</a>
                 <a href="#espacios" class="nav-link">Espacios</a>
@@ -913,7 +976,13 @@
 
     <!-- Hero -->
     <section class="hero">
-        <h1>Casa<br>Negra</h1>
+        <h1>
+            <div class="hero-title-triangle"></div>
+            <div class="hero-title-text">
+                <span>Casa</span>
+                <span>Negra</span>
+            </div>
+        </h1>
         <div class="typewriter-container">
             <span class="typewriter" id="typewriter"></span>
         </div>
