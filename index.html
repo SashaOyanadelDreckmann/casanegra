@@ -102,25 +102,25 @@
 
         .logo {
             font-family: 'Roboto Slab', serif;
-            font-size: 1rem;
+            font-size: 0.4rem;
             color: #1a1a1a;
             font-weight: 900;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             font-style: normal;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.15rem;
+            gap: 0.08rem;
             line-height: 1;
         }
 
         .logo-triangle {
             width: 0;
             height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 18px solid #1a1a1a;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 7px solid #1a1a1a;
         }
 
         .logo-text {
@@ -132,9 +132,13 @@
 
         .logo-text span {
             display: block;
-            letter-spacing: 0.12em;
-            width: 3.2em;
+            letter-spacing: 0.05em;
+            width: 2.4em;
+            height: 0.5em;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         nav {
@@ -180,12 +184,11 @@
 
         .hero h1 {
             color: #1a1a1a;
-            font-size: clamp(4rem, 12vw, 7rem);
             margin-bottom: 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0;
             background: rgba(255, 255, 255, 0.95);
             padding: 2rem;
             border-radius: 0;
@@ -194,9 +197,9 @@
         .hero-title-triangle {
             width: 0;
             height: 0;
-            border-left: clamp(40px, 8vw, 80px) solid transparent;
-            border-right: clamp(40px, 8vw, 80px) solid transparent;
-            border-bottom: clamp(36px, 7vw, 72px) solid #1a1a1a;
+            border-left: clamp(50px, 10vw, 100px) solid transparent;
+            border-right: clamp(50px, 10vw, 100px) solid transparent;
+            border-bottom: clamp(50px, 10vw, 100px) solid #1a1a1a;
         }
 
         .hero-title-text {
@@ -209,9 +212,14 @@
 
         .hero-title-text span {
             display: block;
-            width: 4.2em;
+            width: clamp(200px, 30vw, 400px);
+            height: clamp(200px, 30vw, 400px);
             text-align: center;
             letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(4rem, 12vw, 7rem);
         }
 
         .typewriter-container {
