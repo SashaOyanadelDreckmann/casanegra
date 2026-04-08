@@ -14,9 +14,17 @@ app.use(express.static(path.join(__dirname)));
 
 // Variables de entorno
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || 'AIzaSyA9Q0fTUrQ10rkwNchZsssvAmG1SfacbcY';
-const CALENDAR_EMAIL = 'casanegra.contacto.cl@gmail.com';
+const CALENDAR_EMAIL = process.env.CALENDAR_ID || 'casanegra.contacto.cl@gmail.com';
 const GMAIL_USER = process.env.GMAIL_USER || 'casanegra.contacto.cl@gmail.com';
 const GMAIL_PASSWORD = process.env.GMAIL_PASSWORD || '';
+
+// Validar que las credenciales están configuradas
+if (!GOOGLE_API_KEY || GOOGLE_API_KEY.includes('tu_api_key')) {
+  console.warn('GOOGLE_API_KEY no está configurada correctamente');
+}
+if (!GMAIL_PASSWORD || GMAIL_PASSWORD.includes('tu_contraseña')) {
+  console.warn('GMAIL_PASSWORD no está configurada correctamente');
+}
 
 // Configurar Google Calendar
 const calendar = google.calendar({
@@ -62,12 +70,19 @@ app.post('/api/reservar', async (req, res) => {
     };
 
     // Insertar evento en calendario
-    const calendarRes = await calendar.events.insert({
-      calendarId: CALENDAR_EMAIL,
-      resource: event
-    });
+    let calendarRes;
+    try {
+      calendarRes = await calendar.events.insert({
+        calendarId: CALENDAR_EMAIL,
+        resource: event
+      });
+      console.log('Evento creado en Google Calendar:', calendarRes.data.id);
+    } catch (calError) {
+      console.error('Error al crear evento en Google Calendar:', calError.message);
+      // Continuar de todos modos, el email es lo importante
+    }
 
-    // Enviar email de confirmación
+    // Enviar email de confirmación al usuario
     const mailOptions = {
       from: GMAIL_USER,
       to: email,
@@ -79,33 +94,62 @@ app.post('/api/reservar', async (req, res) => {
         <hr>
         <h3>Detalles de tu reserva:</h3>
         <ul>
-          <li><strong>Suite:</strong> ${suite}</li>
+          <li><strong>Suite/Servicio:</strong> ${suite}</li>
           <li><strong>Check-in:</strong> ${checkIn}</li>
           <li><strong>Check-out:</strong> ${checkOut}</li>
           <li><strong>Noches:</strong> ${nights}</li>
           <li><strong>Huéspedes:</strong> ${guests}</li>
           <li><strong>Servicios adicionales:</strong> ${services || 'Ninguno'}</li>
-          <li><strong>Total:</strong> $${total}</li>
+          <li><strong>Total a pagar:</strong> $${total.toLocaleString('es-CL')}</li>
         </ul>
         <hr>
-        <p>Te contactaremos pronto para confirmar detalles.</p>
+        <p>Te contactaremos pronto para confirmar detalles de pago.</p>
         <p><strong>Casa Negra</strong><br>Premium Guest Room en Ñuñoa, Santiago<br>
         <a href="https://casanegra-production.up.railway.app">casanegra-production.up.railway.app</a></p>
       `
     };
 
     await transporter.sendMail(mailOptions);
+    console.log('Email de confirmación enviado a:', email);
+
+    // Enviar notificación al administrador
+    const adminMailOptions = {
+      from: GMAIL_USER,
+      to: 'casanegra.contacto.cl@gmail.com',
+      subject: `Nueva Reserva - ${name} - ${suite}`,
+      html: `
+        <h2>Nueva Reserva Recibida</h2>
+        <p><strong>Huésped:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Teléfono:</strong> ${phone}</p>
+        <p><strong>Suite/Servicio:</strong> ${suite}</p>
+        <p><strong>Check-in:</strong> ${checkIn}</p>
+        <p><strong>Check-out:</strong> ${checkOut}</p>
+        <p><strong>Noches:</strong> ${nights}</p>
+        <p><strong>Servicios:</strong> ${services || 'Ninguno'}</p>
+        <p><strong>Total:</strong> $${total.toLocaleString('es-CL')}</p>
+        <p>Hora de reserva: ${new Date().toLocaleString('es-CL')}</p>
+      `
+    };
+
+    await transporter.sendMail(adminMailOptions);
+    console.log('Notificación de reserva enviada al administrador');
 
     // Responder al cliente
     res.json({
       success: true,
-      message: 'Reserva confirmada',
-      eventId: calendarRes.data.id
+      message: 'Reserva confirmada exitosamente',
+      eventId: calendarRes?.data?.id || null
     });
 
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Error al procesar la reserva', details: error.message });
+    console.error('Error al procesar reserva:', error);
+    const errorMsg = error.message || 'Error desconocido';
+    res.status(500).json({
+      success: false,
+      error: 'Error al procesar la reserva',
+      details: errorMsg
+    });
   }
 });
 
