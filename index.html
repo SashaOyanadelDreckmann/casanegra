@@ -101,44 +101,16 @@
         }
 
         .logo {
-            font-family: 'Roboto Slab', serif;
-            font-size: 0.4rem;
-            color: #1a1a1a;
-            font-weight: 900;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-style: normal;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.08rem;
-            line-height: 1;
-        }
-
-        .logo-triangle {
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-bottom: 7px solid #1a1a1a;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-
-        .logo-text span {
-            display: block;
-            letter-spacing: 0.05em;
-            width: 2.4em;
-            height: 0.5em;
-            text-align: center;
+            width: 50px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .logo svg {
+            width: 100%;
+            height: 100%;
         }
 
         nav {
@@ -183,43 +155,19 @@
         }
 
         .hero h1 {
-            color: #1a1a1a;
             margin-bottom: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
             background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 0;
-        }
-
-        .hero-title-triangle {
-            width: 0;
-            height: 0;
-            border-left: clamp(30px, 7vw, 60px) solid transparent;
-            border-right: clamp(30px, 7vw, 60px) solid transparent;
-            border-bottom: clamp(30px, 7vw, 60px) solid #1a1a1a;
-        }
-
-        .hero-title-text {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            letter-spacing: 0.15em;
-        }
-
-        .hero-title-text span {
-            display: block;
-            width: clamp(100px, 15vw, 200px);
-            height: clamp(100px, 15vw, 200px);
-            text-align: center;
-            letter-spacing: 0.15em;
+            padding: 3rem 2rem;
+            width: clamp(250px, 60vw, 450px);
+            height: clamp(250px, 60vw, 450px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .hero h1 svg {
+            width: 100%;
+            height: 100%;
         }
 
         .typewriter-container {
@@ -967,11 +915,20 @@
     <header>
         <div class="header-content">
             <div class="logo">
-                <div class="logo-triangle"></div>
-                <div class="logo-text">
-                    <span>Casa</span>
-                    <span>Negra</span>
-                </div>
+                <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Techo -->
+                    <polygon points="100,25 25,115 175,115" fill="none" stroke="#1a1a1a" stroke-width="10" stroke-linejoin="round"/>
+                    <!-- Chimenea -->
+                    <rect x="155" y="55" width="18" height="45" fill="none" stroke="#1a1a1a" stroke-width="8" rx="2"/>
+                    <!-- Paredes -->
+                    <rect x="25" y="115" width="150" height="110" fill="none" stroke="#1a1a1a" stroke-width="10" rx="8"/>
+                    <!-- Puerta -->
+                    <rect x="85" y="175" width="30" height="50" fill="none" stroke="#1a1a1a" stroke-width="6" rx="2"/>
+                    <!-- Texto CASA -->
+                    <text x="100" y="145" font-family="Roboto Slab, serif" font-size="24" font-weight="900" text-anchor="middle" fill="#1a1a1a" letter-spacing="2">CASA</text>
+                    <!-- Texto NEGRA -->
+                    <text x="100" y="175" font-family="Roboto Slab, serif" font-size="24" font-weight="900" text-anchor="middle" fill="#1a1a1a" letter-spacing="2">NEGRA</text>
+                </svg>
             </div>
             <nav>
                 <a href="#suites" class="nav-link">Suites</a>
@@ -985,11 +942,20 @@
     <!-- Hero -->
     <section class="hero">
         <h1>
-            <div class="hero-title-triangle"></div>
-            <div class="hero-title-text">
-                <span>Casa</span>
-                <span>Negra</span>
-            </div>
+            <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                <!-- Techo -->
+                <polygon points="100,25 25,115 175,115" fill="none" stroke="#1a1a1a" stroke-width="10" stroke-linejoin="round"/>
+                <!-- Chimenea -->
+                <rect x="155" y="55" width="18" height="45" fill="none" stroke="#1a1a1a" stroke-width="8" rx="2"/>
+                <!-- Paredes -->
+                <rect x="25" y="115" width="150" height="110" fill="none" stroke="#1a1a1a" stroke-width="10" rx="8"/>
+                <!-- Puerta -->
+                <rect x="85" y="175" width="30" height="50" fill="none" stroke="#1a1a1a" stroke-width="6" rx="2"/>
+                <!-- Texto CASA -->
+                <text x="100" y="145" font-family="Roboto Slab, serif" font-size="28" font-weight="900" text-anchor="middle" fill="#1a1a1a" letter-spacing="2">CASA</text>
+                <!-- Texto NEGRA -->
+                <text x="100" y="175" font-family="Roboto Slab, serif" font-size="28" font-weight="900" text-anchor="middle" fill="#1a1a1a" letter-spacing="2">NEGRA</text>
+            </svg>
         </h1>
         <div class="typewriter-container">
             <span class="typewriter" id="typewriter"></span>
