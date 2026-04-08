@@ -1,0 +1,23 @@
+{
+  "name": "casa-negra",
+  "version": "1.0.0",
+  "description": "Casa Negra - Premium Guest Room en Ñuñoa, Santiago",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "guest-room",
+    "boutique-hotel",
+    "santiago"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}

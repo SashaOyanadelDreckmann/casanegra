@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Casa Negra - Premium Guest Room en Ñuñoa, Santiago. Suites exclusivas con servicios personalizados.">
+    <title>Casa Negra | Premium Boutique Hotel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Satisfy&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --negro: #f5f1ed;
+            --beige: #1a1a1a;
+            --beige-claro: #0d0d0d;
+            --gris: #b8b0a8;
+            --gris-claro: #8b8680;
+            --duracion: 600ms;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--beige-claro);
+            color: var(--negro);
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-family: 'Satisfy', cursive;
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 400;
+            color: var(--negro);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 600;
+            color: var(--negro);
+            margin-bottom: 3rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--negro);
+        }
+
+        p {
+            color: var(--gris);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: var(--beige);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(245, 241, 237, 0.15);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+            background: rgba(13, 13, 13, 0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(245, 241, 237, 0.15);
+            padding: 1.5rem 2rem;
+        }
+
+        .header-content {
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Satisfy', cursive;
+            font-size: 1.5rem;
+            color: var(--negro);
+            font-weight: 400;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gris);
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: color var(--duracion) var(--ease);
+        }
+
+        .nav-link:hover {
+            color: var(--negro);
+        }
+
+        /* Sections */
+        section {
+            padding: 8rem 2rem;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 10rem 2rem 8rem;
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.5) 100%),
+                        url('iloveimg-converted/IMG_8547.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+            color: var(--beige);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+        }
+
+        .hero h1 {
+            color: #ffffff;
+            font-size: clamp(5rem, 15vw, 8rem);
+            margin-bottom: 2rem;
+        }
+
+        .typewriter-container {
+            margin-bottom: 3rem;
+            min-height: 3rem;
+        }
+
+        .typewriter {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFD700;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            border-right: 3px solid #FFD700;
+            padding-right: 0.5rem;
+            animation: cursor-blink 0.7s infinite;
+        }
+
+        @keyframes cursor-blink {
+            0%, 49% { border-right-color: #FFD700; }
+            50%, 100% { border-right-color: transparent; }
+        }
+
+        .hero p {
+            color: rgba(245, 241, 237, 0.85);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--beige);
+            color: var(--negro);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--duracion) var(--ease);
+            letter-spacing: 0.02em;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(245, 241, 237, 0.25);
+        }
+
+        /* Suites Grid */
+        .suites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .suite-card {
+            background: var(--beige);
+            border: 1px solid rgba(245, 241, 237, 0.15);
+            overflow: hidden;
+            transition: all var(--duracion) var(--ease);
+            cursor: pointer;
+        }
+
+        .suite-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(245, 241, 237, 0.12);
+        }
+
+        .suite-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .suite-content {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .suite-content > *:not(.suite-select-btn) {
+            flex: 0 0 auto;
+        }
+
+        .suite-select-btn {
+            margin-top: auto;
+        }
+
+        .suite-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--gris);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .suite-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--negro);
+            margin-bottom: 1rem;
+        }
+
+        .suite-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 1.5rem;
+        }
+
+        .suite-description {
+            color: var(--gris);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .suite-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .suite-features li {
+            padding: 0.7rem 0;
+            color: var(--gris);
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        .suite-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--negro);
+            border-radius: 50%;
+        }
+
+        .suite-select-btn {
+            width: 100%;
+            padding: 1.1rem;
+            background: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--duracion) var(--ease);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .suite-select-btn:hover {
+            background: #333333;
+        }
+
+        /* Gallery Collage */
+        .gallery-collage {
+            margin-top: 4rem;
+        }
+
+        .collage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            grid-auto-rows: 250px;
+        }
+
+        .collage-item {
+            position: relative;
+            overflow: hidden;
+            background: var(--negro);
+            border: 1px solid rgba(245, 241, 237, 0.2);
+            transition: all var(--duracion) var(--ease);
+            cursor: pointer;
+        }
+
+        .collage-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--duracion) var(--ease);
+        }
+
+        .collage-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .collage-item:nth-child(3n) {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+
+        .collage-item:nth-child(3n) {
+            min-height: 520px;
+        }
+
+        /* Servicios */
+        .servicios-container {
+            margin-top: 4rem;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .servicio-card {
+            background: var(--beige);
+            padding: 2.5rem;
+            border: 1px solid rgba(245, 241, 237, 0.15);
+            transition: all var(--duracion) var(--ease);
+        }
+
+        .servicio-card:hover {
+            box-shadow: 0 10px 30px rgba(245, 241, 237, 0.08);
+        }
+
+        .servicio-destacado {
+            grid-column: 1 / -1;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            border: 2px solid var(--negro);
+            background: var(--beige-claro);
+        }
+
+        .servicio-titulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--negro);
+            margin-bottom: 0.8rem;
+        }
+
+        .servicio-precio {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 1rem;
+        }
+
+        .servicio-descripcion {
+            font-size: 0.9rem;
+            color: var(--gris);
+            line-height: 1.6;
+        }
+
+        /* Formulario Reserva */
+        .formulario-section {
+            background: var(--beige);
+            padding: 4rem;
+            border: 1px solid rgba(245, 241, 237, 0.15);
+            margin-top: 4rem;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: var(--gris);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 1.1rem;
+            border: 1px solid rgba(245, 241, 237, 0.2);
+            background: var(--beige-claro);
+            color: var(--negro);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all var(--duracion) var(--ease);
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--negro);
+            background: var(--beige);
+        }
+
+        /* Checkboxes para servicios */
+        .servicios-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--beige-claro);
+            border: 1px solid rgba(245, 241, 237, 0.15);
+            cursor: pointer;
+            transition: all var(--duracion) var(--ease);
+        }
+
+        .checkbox-item:hover {
+            background: var(--beige);
+            border-color: var(--negro);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--negro);
+        }
+
+        .checkbox-content {
+            flex: 1;
+        }
+
+        .checkbox-titulo {
+            font-weight: 600;
+            color: var(--negro);
+            margin-bottom: 0.3rem;
+        }
+
+        .checkbox-descripcion {
+            font-size: 0.9rem;
+            color: var(--gris);
+        }
+
+        .checkbox-precio {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--negro);
+            white-space: nowrap;
+        }
+
+        /* Resumen */
+        .resumen {
+            background: var(--beige-claro);
+            padding: 2rem;
+            border: 1px solid rgba(245, 241, 237, 0.2);
+            margin-top: 3rem;
+        }
+
+        .resumen-titulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--negro);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .resumen-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(245, 241, 237, 0.1);
+            font-size: 0.95rem;
+            color: var(--gris);
+        }
+
+        .resumen-item.total {
+            border-top: 2px solid var(--negro);
+            border-bottom: none;
+            padding-top: 1.5rem;
+            padding-bottom: 0;
+            margin-top: 1.5rem;
+        }
+
+        .resumen-item.total .resumen-label {
+            font-weight: 700;
+            color: var(--negro);
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        .resumen-item.total .resumen-valor {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--negro);
+        }
+
+        .resumen-label {
+            color: var(--gris);
+        }
+
+        .resumen-valor {
+            font-weight: 600;
+            color: var(--negro);
+        }
+
+        /* Botones Navegación */
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .btn-prev,
+        .btn-next,
+        .btn-submit {
+            flex: 1;
+            padding: 1.2rem;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--duracion) var(--ease);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-prev {
+            background: var(--beige-claro);
+            color: var(--negro);
+            border: 1px solid rgba(245, 241, 237, 0.3);
+        }
+
+        .btn-prev:hover:not(:disabled) {
+            background: var(--beige);
+        }
+
+        .btn-next,
+        .btn-submit {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .btn-next:hover,
+        .btn-submit:hover {
+            background: #333333;
+        }
+
+        .btn-prev:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Progress */
+        .progress-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 3px;
+            background: rgba(245, 241, 237, 0.2);
+            transition: all var(--duracion) var(--ease);
+        }
+
+        .progress-step.active {
+            background: var(--negro);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--negro);
+            color: var(--beige);
+            padding: 3rem 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.8rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem 3rem;
+                margin-top: 70px;
+            }
+
+            .hero h1 {
+                font-size: clamp(3rem, 12vw, 5rem);
+                margin-bottom: 1rem;
+            }
+
+            .typewriter-container {
+                margin-bottom: 1.5rem;
+            }
+
+            .typewriter {
+                font-size: 1.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 0.9rem;
+            }
+
+            .suites-grid {
+                gap: 1.5rem;
+            }
+
+            .suite-content {
+                padding: 1.5rem;
+            }
+
+            .suite-image {
+                height: 200px;
+            }
+
+            .suite-title {
+                font-size: 1.5rem;
+            }
+
+            .suite-price {
+                font-size: 1.8rem;
+            }
+
+            .suite-features li {
+                font-size: 0.8rem;
+            }
+
+            .servicios-grid {
+                gap: 1.5rem;
+            }
+
+            .servicio-card {
+                padding: 1.5rem;
+            }
+
+            .servicio-titulo {
+                font-size: 1rem;
+            }
+
+            .servicio-precio {
+                font-size: 1.2rem;
+            }
+
+            .categoria-tab {
+                font-size: 0.75rem;
+                padding: 0.7rem 1rem;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+
+            .collage-gallery {
+                gap: 1rem;
+            }
+
+            .formulario-section {
+                padding: 1.5rem;
+            }
+
+            .form-label {
+                font-size: 0.8rem;
+            }
+
+            .form-input,
+            .form-select {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+
+            .checkbox-item {
+                padding: 1.2rem;
+                gap: 1rem;
+            }
+
+            .checkbox-titulo {
+                font-size: 0.9rem;
+            }
+
+            .checkbox-descripcion {
+                font-size: 0.75rem;
+            }
+
+            .form-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .btn-prev,
+            .btn-next,
+            .btn-submit {
+                padding: 1.3rem;
+                font-size: 0.9rem;
+            }
+
+            .resumen-container {
+                padding: 1.5rem;
+            }
+
+            .resumen-item {
+                font-size: 0.9rem;
+                padding: 0.8rem 0;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .suites-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .servicios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) and (min-width: 481px) {
+            .hero {
+                padding: 6rem 1.5rem 4rem;
+            }
+
+            .suite-content {
+                padding: 2rem;
+            }
+
+            .suite-image {
+                height: 250px;
+            }
+
+            .servicio-card {
+                padding: 2rem;
+            }
+
+            .formulario-section {
+                padding: 2.5rem;
+            }
+
+            .form-buttons {
+                flex-direction: row;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .formulario-section {
+                padding: 2rem;
+            }
+
+            .collage-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                grid-auto-rows: 180px;
+            }
+
+            .collage-item:nth-child(3n) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">Casa Negra</div>
+            <nav>
+                <a href="#suites" class="nav-link">Suites</a>
+                <a href="#espacios" class="nav-link">Espacios</a>
+                <a href="#reserva" class="nav-link">Reservar</a>
+                <a href="#contacto" class="nav-link">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Casa Negra</h1>
+        <div class="typewriter-container">
+            <span class="typewriter" id="typewriter"></span>
+        </div>
+        <p>Premium Guest Room en Ñuñoa. Suites exclusivas con servicios personalizados y experiencias de lujo.</p>
+        <a href="#suites" class="cta-button">Explorar Suites</a>
+    </section>
+
+    <!-- Suites -->
+    <section id="suites">
+        <h2>Nuestras Suites</h2>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto 4rem; color: var(--gris);">Cada suite ha sido diseñada con atención al detalle, combinando elegancia rústica con comodidades modernas.</p>
+
+        <div class="suites-grid">
+            <!-- Montenegro -->
+            <div class="suite-card" onclick="selectSuite('montenegro', 'Suite Montenegro', 65000)">
+                <img src="iloveimg-converted/IMG_8614.jpg" alt="Suite Montenegro" class="suite-image" id="img-montenegro">
+                <div class="suite-content">
+                    <div class="suite-tag">Matrimonial</div>
+                    <div class="suite-title">Montenegro</div>
+                    <div class="suite-price">$65.000</div>
+                    <p class="suite-description">Suite matrimonial con cama premium, baño privado y vista exclusiva.</p>
+                    <ul class="suite-features">
+                        <li>Cama matrimonial premium</li>
+                        <li>Baño privado</li>
+                        <li>Check-in 24 horas</li>
+                        <li>Acceso a área común</li>
+                    </ul>
+                    <button class="suite-select-btn">Seleccionar</button>
+                </div>
+            </div>
+
+            <!-- Bohemia -->
+            <div class="suite-card" onclick="selectSuite('bohemia', 'Suite Bohemia', 32000)">
+                <img src="iloveimg-converted/IMG_8726.jpg" alt="Suite Bohemia" class="suite-image" id="img-bohemia">
+                <div class="suite-content">
+                    <div class="suite-tag">Individual</div>
+                    <div class="suite-title">Bohemia</div>
+                    <div class="suite-price">$32.000</div>
+                    <p class="suite-description">Suite individual acogedora con diseño bohemio y carácter único.</p>
+                    <ul class="suite-features">
+                        <li>Cama individual premium</li>
+                        <li>Baño compartido</li>
+                        <li>Check-in 24 horas</li>
+                        <li>Acceso a área común</li>
+                    </ul>
+                    <button class="suite-select-btn">Seleccionar</button>
+                </div>
+            </div>
+
+            <!-- Lastarría -->
+            <div class="suite-card" onclick="selectSuite('lastarria', 'Suite Lastarría', 44000)">
+                <img src="iloveimg-converted/IMG_8689.jpg" alt="Suite Lastarría" class="suite-image" id="img-lastarria">
+                <div class="suite-content">
+                    <div class="suite-tag">Individual + Escritorio</div>
+                    <div class="suite-title">Lastarría</div>
+                    <div class="suite-price">$44.000</div>
+                    <p class="suite-description">Suite individual con escritorio profesional, ideal para trabajar.</p>
+                    <ul class="suite-features">
+                        <li>Cama individual premium</li>
+                        <li>Escritorio profesional</li>
+                        <li>Check-in 24 horas</li>
+                        <li>WiFi de alta velocidad</li>
+                    </ul>
+                    <button class="suite-select-btn">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Espacios -->
+    <section id="espacios">
+        <h2>Recorre los Espacios</h2>
+
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 4rem; border-bottom: 1px solid rgba(245, 241, 237, 0.2); padding-bottom: 2rem; flex-wrap: nowrap; overflow-x: auto;" id="categoriaTabs">
+            <button class="categoria-tab active" data-categoria="jacuzzi" onclick="cambiarCategoria('jacuzzi', this)">Jacuzzi & Terraza</button>
+            <button class="categoria-tab" data-categoria="montenegro" onclick="cambiarCategoria('montenegro', this)">Suite Montenegro</button>
+            <button class="categoria-tab" data-categoria="bohemia" onclick="cambiarCategoria('bohemia', this)">Suite Bohemia</button>
+            <button class="categoria-tab" data-categoria="lastarria" onclick="cambiarCategoria('lastarria', this)">Suite Lastarría</button>
+            <button class="categoria-tab" data-categoria="sala" onclick="cambiarCategoria('sala', this)">Sala de Estar</button>
+            <button class="categoria-tab" data-categoria="workspace" onclick="cambiarCategoria('workspace', this)">Espacios de Trabajo</button>
+        </div>
+
+        <style>
+            .categoria-tab {
+                background: none;
+                border: none;
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.02em;
+                color: var(--gris);
+                cursor: pointer;
+                transition: all var(--duracion) var(--ease);
+                font-weight: 600;
+                position: relative;
+            }
+
+            .categoria-tab:hover {
+                color: var(--negro);
+            }
+
+            .categoria-tab.active {
+                color: var(--negro);
+            }
+
+            .categoria-tab.active::after {
+                content: '';
+                position: absolute;
+                bottom: -2rem;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: var(--negro);
+            }
+
+            .collage-gallery {
+                display: grid;
+                gap: 2rem;
+            }
+
+            /* Grid layouts por categoría - optimizado sin filas vacías */
+            #cat-jacuzzi .collage-gallery {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            #cat-montenegro .collage-gallery {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            #cat-bohemia .collage-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #cat-lastarria .collage-gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            #cat-sala .collage-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #cat-workspace .collage-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .collage-gallery img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border: 1px solid rgba(245, 241, 237, 0.15);
+                transition: all var(--duracion) var(--ease);
+                cursor: pointer;
+            }
+
+            .collage-gallery img:hover {
+                transform: scale(1.03);
+                filter: brightness(1.08);
+                box-shadow: 0 10px 30px rgba(245, 241, 237, 0.15);
+            }
+
+            @media (max-width: 1024px) {
+                .collage-gallery {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .collage-gallery {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .categoria-contenedor {
+                display: none;
+            }
+
+            .categoria-contenedor.active {
+                display: block;
+            }
+        </style>
+
+        <!-- Jacuzzi & Terraza -->
+        <div class="categoria-contenedor active" id="cat-jacuzzi">
+            <div class="collage-gallery">
+                <img src="iloveimg-converted/IMG_8547.jpg" alt="Jacuzzi">
+                <img src="iloveimg-converted/IMG_8481.jpg" alt="Jacuzzi">
+                <img src="iloveimg-converted/IMG_8544.jpg" alt="Jacuzzi">
+                <img src="iloveimg-converted/IMG_8549.jpg" alt="Jacuzzi">
+                <img src="iloveimg-converted/IMG_8550.jpg" alt="Jacuzzi">
+                <img src="iloveimg-converted/IMG_8714.jpg" alt="Jacuzzi">
+                <img src="iloveimg-converted/IMG_8820.jpg" alt="Jacuzzi">
+                <img src="iloveimg-converted/IMG_8827.jpg" alt="Jacuzzi">
+                <img src="iloveimg-converted/IMG_8765.jpg" alt="Terraza">
+                <img src="iloveimg-converted/IMG_8768.jpg" alt="Terraza">
+                <img src="iloveimg-converted/IMG_8787.jpg" alt="Terraza">
+            </div>
+        </div>
+
+        <!-- Montenegro -->
+        <div class="categoria-contenedor" id="cat-montenegro">
+            <div class="collage-gallery">
+                <img src="iloveimg-converted/IMG_8603.jpg" alt="Montenegro">
+                <img src="iloveimg-converted/IMG_8609.jpg" alt="Montenegro">
+                <img src="iloveimg-converted/IMG_8614.jpg" alt="Montenegro">
+                <img src="iloveimg-converted/IMG_8625.jpg" alt="Montenegro">
+                <img src="iloveimg-converted/IMG_8649.jpg" alt="Montenegro">
+                <img src="iloveimg-converted/IMG_8653.jpg" alt="Montenegro">
+                <img src="iloveimg-converted/IMG_8669.jpg" alt="Montenegro">
+                <img src="iloveimg-converted/IMG_8684.jpg" alt="Montenegro">
+            </div>
+        </div>
+
+        <!-- Bohemia -->
+        <div class="categoria-contenedor" id="cat-bohemia">
+            <div class="collage-gallery">
+                <img src="iloveimg-converted/IMG_8686.jpg" alt="Bohemia">
+                <img src="iloveimg-converted/IMG_8726.jpg" alt="Bohemia">
+                <img src="iloveimg-converted/IMG_8727.jpg" alt="Bohemia">
+                <img src="iloveimg-converted/IMG_8728.jpg" alt="Bohemia">
+            </div>
+        </div>
+
+        <!-- Lastarría -->
+        <div class="categoria-contenedor" id="cat-lastarria">
+            <div class="collage-gallery">
+                <img src="iloveimg-converted/IMG_8585.jpg" alt="Lastarría">
+                <img src="iloveimg-converted/IMG_8590.jpg" alt="Lastarría">
+                <img src="iloveimg-converted/IMG_8602.jpg" alt="Lastarría">
+                <img src="iloveimg-converted/IMG_8686.jpg" alt="Lastarría">
+                <img src="iloveimg-converted/IMG_8687.jpg" alt="Lastarría">
+                <img src="iloveimg-converted/IMG_8689.jpg" alt="Lastarría">
+            </div>
+        </div>
+
+        <!-- Sala de Estar -->
+        <div class="categoria-contenedor" id="cat-sala">
+            <div class="collage-gallery">
+                <img src="iloveimg-converted/IMG_8702.jpg" alt="Sala">
+                <img src="iloveimg-converted/IMG_8813.jpg" alt="Sala">
+                <img src="iloveimg-converted/IMG_8815.jpg" alt="Sala">
+                <img src="iloveimg-converted/IMG_8817.jpg" alt="Sala">
+            </div>
+        </div>
+
+        <!-- Workspace -->
+        <div class="categoria-contenedor" id="cat-workspace">
+            <div class="collage-gallery">
+                <img src="iloveimg-converted/IMG_8520.jpg" alt="Workspace">
+                <img src="iloveimg-converted/IMG_8699.jpg" alt="Workspace">
+                <img src="iloveimg-converted/IMG_8712.jpg" alt="Workspace">
+                <img src="iloveimg-converted/IMG_8815.jpg" alt="Workspace">
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function cambiarCategoria(categoria, elemento) {
+            // Remover active de todos los tabs
+            document.querySelectorAll('.categoria-tab').forEach(tab => tab.classList.remove('active'));
+
+            // Agregar active al tab clickeado
+            elemento.classList.add('active');
+
+            // Remover active de todos los contenedores
+            document.querySelectorAll('.categoria-contenedor').forEach(cont => cont.classList.remove('active'));
+
+            // Mostrar el contenedor correspondiente
+            document.getElementById('cat-' + categoria).classList.add('active');
+        }
+    </script>
+
+    <!-- Servicios -->
+    <section>
+        <h2>Servicios Adicionales</h2>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto 1.5rem; color: var(--gris);">Personaliza tu experiencia con nuestros servicios premium. Todos tienen costo adicional.</p>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto 4rem; font-size: 0.9rem; color: var(--gris-claro); font-style: italic;">Puedes contratarlos al hacer tu reserva o directamente al llegar a Casa Negra.</p>
+
+        <div class="servicios-grid">
+            <div class="servicio-card servicio-destacado">
+                <div class="servicio-titulo">Jacuzzi Solo Para 2 Personas</div>
+                <div class="servicio-precio">$25.000</div>
+                <p class="servicio-descripcion">Disfruta de 2 horas exclusivas en nuestro jacuzzi privado. Sin necesidad de hospedarse — servicio disponible para cualquier visitante.</p>
+            </div>
+
+            <div class="servicio-card">
+                <div class="servicio-titulo">Jacuzzi Privado</div>
+                <div class="servicio-precio">$20.000</div>
+                <p class="servicio-descripcion">Acceso por 2 horas a nuestro jacuzzi privado. Reserva tu horario.</p>
+            </div>
+
+            <div class="servicio-card">
+                <div class="servicio-titulo">Experiencia Completa Jacuzzi</div>
+                <div class="servicio-precio">$43.000</div>
+                <p class="servicio-descripcion">Jacuzzi 2h + botella de vino + tabla para picar. Experiencia premium.</p>
+            </div>
+
+            <div class="servicio-card">
+                <div class="servicio-titulo">Desayuno</div>
+                <div class="servicio-precio">$8.000</div>
+                <p class="servicio-descripcion">Desayuno completo. Requiere aviso con 1 día de anticipación.</p>
+            </div>
+
+            <div class="servicio-card">
+                <div class="servicio-titulo">Limpieza y Cambio de Sábanas</div>
+                <div class="servicio-precio">$10.000</div>
+                <p class="servicio-descripcion">Servicio de limpieza completo y cambio de ropa de cama.</p>
+            </div>
+
+            <div class="servicio-card">
+                <div class="servicio-titulo">Lavandería</div>
+                <div class="servicio-precio">$10.000</div>
+                <p class="servicio-descripcion">Servicio de lavado de ropa. Opción: usar nuestra lavadora.</p>
+            </div>
+
+            <div class="servicio-card">
+                <div class="servicio-titulo">Planchado de Ropa</div>
+                <div class="servicio-precio">$20.000</div>
+                <p class="servicio-descripcion">Servicio profesional de planchado y cuidado de prendas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario Reserva -->
+    <section id="reserva">
+        <h2>Reserva tu Estadía</h2>
+
+        <div class="formulario-section">
+            <div class="progress-bar">
+                <div class="progress-step active" id="progress1"></div>
+                <div class="progress-step" id="progress2"></div>
+                <div class="progress-step" id="progress3"></div>
+            </div>
+
+            <form id="reservaForm">
+                <!-- Paso 1: Seleccionar Suite -->
+                <div class="form-step active" id="step1">
+                    <h3 style="margin-bottom: 2rem;">Paso 1: Selecciona tu Suite</h3>
+                    <div class="form-group">
+                        <label class="form-label">Suite Seleccionada</label>
+                        <input type="text" id="suiteSeleccionada" class="form-input" placeholder="Selecciona una suite" readonly required>
+                        <input type="hidden" id="suiteName">
+                        <input type="hidden" id="suitePrice">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-input" id="nombre" placeholder="Tu nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="email" placeholder="tu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" class="form-input" id="telefono" placeholder="+56 9 XXXX XXXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Fecha de Entrada</label>
+                        <input type="date" class="form-input" id="fechaEntrada" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Fecha de Salida</label>
+                        <input type="date" class="form-input" id="fechaSalida" required>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="btn-next" onclick="nextStep()">Continuar</button>
+                    </div>
+                </div>
+
+                <!-- Paso 2: Servicios -->
+                <div class="form-step" id="step2">
+                    <h3 style="margin-bottom: 2rem;">Paso 2: Agrega Servicios (Opcional)</h3>
+                    <p style="color: var(--gris); margin-bottom: 2rem;">Selecciona los servicios adicionales que deseas incluir en tu reserva.</p>
+
+                    <div class="servicios-list">
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="20000" class="servicio-checkbox" data-nombre="Jacuzzi Privado 2h">
+                            <div class="checkbox-content">
+                                <div class="checkbox-titulo">Jacuzzi Privado 2h</div>
+                                <div class="checkbox-descripcion">Acceso por 2 horas</div>
+                            </div>
+                            <div class="checkbox-precio">$20.000</div>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="8000" class="servicio-checkbox" data-nombre="Desayuno">
+                            <div class="checkbox-content">
+                                <div class="checkbox-titulo">Desayuno</div>
+                                <div class="checkbox-descripcion">Aviso con 1 día de anticipación</div>
+                            </div>
+                            <div class="checkbox-precio">$8.000</div>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="10000" class="servicio-checkbox" data-nombre="Limpieza y Cambio de Sábanas">
+                            <div class="checkbox-content">
+                                <div class="checkbox-titulo">Limpieza y Cambio de Sábanas</div>
+                                <div class="checkbox-descripcion">Servicio completo de limpieza</div>
+                            </div>
+                            <div class="checkbox-precio">$10.000</div>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="10000" class="servicio-checkbox" data-nombre="Lavandería">
+                            <div class="checkbox-content">
+                                <div class="checkbox-titulo">Lavandería</div>
+                                <div class="checkbox-descripcion">Lavado de ropa o uso de lavadora</div>
+                            </div>
+                            <div class="checkbox-precio">$10.000</div>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="20000" class="servicio-checkbox" data-nombre="Planchado de Ropa">
+                            <div class="checkbox-content">
+                                <div class="checkbox-titulo">Planchado de Ropa</div>
+                                <div class="checkbox-descripcion">Servicio profesional de planchado</div>
+                            </div>
+                            <div class="checkbox-precio">$20.000</div>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="43000" class="servicio-checkbox" data-nombre="Experiencia Completa Jacuzzi">
+                            <div class="checkbox-content">
+                                <div class="checkbox-titulo">Experiencia Completa Jacuzzi</div>
+                                <div class="checkbox-descripcion">Jacuzzi + vino + tabla para picar</div>
+                            </div>
+                            <div class="checkbox-precio">$43.000</div>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="25000" class="servicio-checkbox" data-nombre="Jacuzzi Solo (2 personas)">
+                            <div class="checkbox-content">
+                                <div class="checkbox-titulo">Jacuzzi Solo Para 2 Personas</div>
+                                <div class="checkbox-descripcion">2 horas privadas, máximo 2 personas</div>
+                            </div>
+                            <div class="checkbox-precio">$25.000</div>
+                        </label>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="btn-prev" onclick="prevStep()">Atrás</button>
+                        <button type="button" class="btn-next" onclick="nextStep()">Continuar</button>
+                    </div>
+                </div>
+
+                <!-- Paso 3: Resumen -->
+                <div class="form-step" id="step3">
+                    <h3 style="margin-bottom: 2rem;">Paso 3: Resumen de tu Reserva</h3>
+
+                    <div class="resumen">
+                        <div class="resumen-titulo">Detalles de Reserva</div>
+                        <div class="resumen-item">
+                            <span class="resumen-label">Suite</span>
+                            <span class="resumen-valor" id="resumenSuite">-</span>
+                        </div>
+                        <div class="resumen-item">
+                            <span class="resumen-label">Fechas</span>
+                            <span class="resumen-valor" id="resumenFechas">-</span>
+                        </div>
+                        <div class="resumen-item">
+                            <span class="resumen-label">Noches</span>
+                            <span class="resumen-valor" id="resumenNoches">0</span>
+                        </div>
+                        <div id="resumenServicios"></div>
+                        <div class="resumen-item total">
+                            <span class="resumen-label">Total a Pagar</span>
+                            <span class="resumen-valor">$<span id="totalPagar">0</span></span>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--gris); margin-top: 2rem; font-size: 0.9rem;">Método de pago: Transferencia bancaria. Los datos serán enviados al correo de confirmación.</p>
+
+                    <div class="form-buttons">
+                        <button type="button" class="btn-prev" onclick="prevStep()">Atrás</button>
+                        <button type="submit" class="btn-submit" onclick="enviarReserva(event)">Enviar Reserva</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+        <h2>Contacto Directo</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-top: 3rem;">
+            <div>
+                <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--gris); margin-bottom: 1rem; font-weight: 600;">Email</div>
+                <a href="mailto:casanegra.contacto@gmail.com" style="font-size: 1.1rem; color: var(--negro); text-decoration: none; border-bottom: 1px solid var(--negro);">casanegra.contacto@gmail.com</a>
+            </div>
+
+            <div>
+                <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--gris); margin-bottom: 1rem; font-weight: 600;">Teléfono</div>
+                <a href="tel:+56935208367" style="font-size: 1.1rem; color: var(--negro); text-decoration: none; border-bottom: 1px solid var(--negro);">+56 9 3520 8367</a>
+            </div>
+
+            <div>
+                <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--gris); margin-bottom: 1rem; font-weight: 600;">Ubicación</div>
+                <p style="margin: 0;">Ñuñoa, Santiago. Acceso mediante código de puerta.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Casa Negra - Premium Guest Room en Ñuñoa</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">Política de Cancelación: Reembolso total si se cancela con 5 días de anticipación.</p>
+    </footer>
+
+    <script>
+        // Carrusel de imágenes en suites
+        const suiteImages = {
+            montenegro: [
+                'iloveimg-converted/IMG_8614.jpg',
+                'iloveimg-converted/IMG_8609.jpg',
+                'iloveimg-converted/IMG_8625.jpg',
+                'iloveimg-converted/IMG_8649.jpg',
+                'iloveimg-converted/IMG_8653.jpg',
+                'iloveimg-converted/IMG_8669.jpg',
+                'iloveimg-converted/IMG_8684.jpg',
+                'iloveimg-converted/IMG_8603.jpg'
+            ],
+            bohemia: [
+                'iloveimg-converted/IMG_8686.jpg',
+                'iloveimg-converted/IMG_8726.jpg',
+                'iloveimg-converted/IMG_8727.jpg',
+                'iloveimg-converted/IMG_8728.jpg'
+            ],
+            lastarria: [
+                'iloveimg-converted/IMG_8689.jpg',
+                'iloveimg-converted/IMG_8687.jpg',
+                'iloveimg-converted/IMG_8602.jpg',
+                'iloveimg-converted/IMG_8590.jpg',
+                'iloveimg-converted/IMG_8585.jpg',
+                'iloveimg-converted/IMG_8686.jpg'
+            ]
+        };
+
+        let currentImageIndex = {
+            montenegro: 0,
+            bohemia: 0,
+            lastarria: 0
+        };
+
+        function rotateImage(suiteName) {
+            const img = document.getElementById('img-' + suiteName);
+            if (img && suiteImages[suiteName]) {
+                currentImageIndex[suiteName] = (currentImageIndex[suiteName] + 1) % suiteImages[suiteName].length;
+                img.style.opacity = '0.8';
+                img.src = suiteImages[suiteName][currentImageIndex[suiteName]];
+                setTimeout(() => {
+                    img.style.opacity = '1';
+                }, 100);
+            }
+        }
+
+        // Iniciar rotación de imágenes
+        setInterval(() => rotateImage('montenegro'), 3000);
+        setInterval(() => rotateImage('bohemia'), 3000);
+        setInterval(() => rotateImage('lastarria'), 3000);
+
+        // Agregar transición suave a las imágenes
+        document.querySelectorAll('.suite-image').forEach(img => {
+            img.style.transition = 'opacity 0.3s ease';
+        });
+
+        let currentStep = 1;
+        let selectedServices = [];
+
+        function selectSuite(id, name, price) {
+            document.getElementById('suiteSeleccionada').value = name;
+            document.getElementById('suiteName').value = name;
+            document.getElementById('suitePrice').value = price;
+        }
+
+        function nextStep() {
+            if (currentStep === 1) {
+                if (!document.getElementById('suiteSeleccionada').value) {
+                    alert('Por favor selecciona una suite');
+                    return;
+                }
+                if (!document.getElementById('nombre').value || !document.getElementById('email').value ||
+                    !document.getElementById('telefono').value || !document.getElementById('fechaEntrada').value ||
+                    !document.getElementById('fechaSalida').value) {
+                    alert('Por favor completa todos los campos');
+                    return;
+                }
+            }
+
+            if (currentStep === 2) {
+                updateResumen();
+            }
+
+            currentStep++;
+            updateForm();
+        }
+
+        function prevStep() {
+            currentStep--;
+            updateForm();
+        }
+
+        function updateForm() {
+            document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step' + currentStep).classList.add('active');
+
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.classList.toggle('active', index + 1 <= currentStep);
+            });
+        }
+
+        function updateResumen() {
+            selectedServices = [];
+            let totalServicios = 0;
+
+            document.querySelectorAll('.servicio-checkbox:checked').forEach(checkbox => {
+                selectedServices.push({
+                    nombre: checkbox.dataset.nombre,
+                    precio: parseInt(checkbox.value)
+                });
+                totalServicios += parseInt(checkbox.value);
+            });
+
+            const suite = document.getElementById('suiteName').value;
+            const suitePrice = parseInt(document.getElementById('suitePrice').value);
+            const fechaEntrada = document.getElementById('fechaEntrada').value;
+            const fechaSalida = document.getElementById('fechaSalida').value;
+
+            const fecha1 = new Date(fechaEntrada);
+            const fecha2 = new Date(fechaSalida);
+            const noches = Math.ceil((fecha2 - fecha1) / (1000 * 60 * 60 * 24));
+
+            const suiteTotal = suitePrice * noches;
+            const total = suiteTotal + totalServicios;
+
+            document.getElementById('resumenSuite').textContent = suite;
+            document.getElementById('resumenFechas').textContent = `${fechaEntrada} a ${fechaSalida}`;
+            document.getElementById('resumenNoches').textContent = noches;
+
+            let serviciosHTML = '';
+            if (selectedServices.length > 0) {
+                serviciosHTML += '<div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(245, 241, 237, 0.2);">';
+                serviciosHTML += '<div style="font-size: 0.9rem; font-weight: 600; color: var(--negro); margin-bottom: 1rem;">Servicios Adicionales</div>';
+                selectedServices.forEach(service => {
+                    serviciosHTML += `<div class="resumen-item"><span class="resumen-label">${service.nombre}</span><span class="resumen-valor">$${service.precio.toLocaleString()}</span></div>`;
+                });
+                serviciosHTML += '</div>';
+            }
+            document.getElementById('resumenServicios').innerHTML = serviciosHTML;
+
+            document.getElementById('totalPagar').textContent = total.toLocaleString();
+        }
+
+        document.getElementById('reservaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+        });
+
+        function enviarReserva(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const suite = document.getElementById('suiteName').value;
+            const fechaEntrada = document.getElementById('fechaEntrada').value;
+            const fechaSalida = document.getElementById('fechaSalida').value;
+            const total = document.getElementById('totalPagar').textContent;
+
+            let serviciosText = 'Sin servicios adicionales';
+            if (selectedServices.length > 0) {
+                serviciosText = selectedServices.map(s => `${s.nombre}: $${s.precio.toLocaleString()}`).join('\n');
+            }
+
+            const mensaje = `
+NUEVA RESERVA - CASA NEGRA
+
+Cliente: ${nombre}
+Email: ${email}
+Teléfono: ${telefono}
+
+DETALLES DE RESERVA
+Suite: ${suite}
+Entrada: ${fechaEntrada}
+Salida: ${fechaSalida}
+
+SERVICIOS ADICIONALES
+${serviciosText}
+
+TOTAL A PAGAR: $${total} CLP
+
+Método de pago: Transferencia bancaria
+Se enviarán datos bancarios por correo.
+
+Política de cancelación: Reembolso si se avisa 5 días antes.
+            `;
+
+            const mailtoLink = `mailto:casanegra.contacto@gmail.com?subject=Reserva%20Casa%20Negra%20-%20${encodeURIComponent(nombre)}&body=${encodeURIComponent(mensaje)}`;
+            window.location.href = mailtoLink;
+        }
+
+        // Efecto máquina de escribir
+        const phrases = [
+            "Donde cada momento se convierte en recuerdo",
+            "Tu refugio perfecto te espera",
+            "Lujo discreto en el corazón de la ciudad",
+            "Experiencias que trascienden"
+        ];
+
+        let currentPhraseIndex = 0;
+        let currentCharIndex = 0;
+        const typewriterElement = document.getElementById('typewriter');
+        const typingSpeed = 80;
+        const deleteSpeed = 40;
+        const delayBetweenPhrases = 3000;
+
+        function typeWriter() {
+            const currentPhrase = phrases[currentPhraseIndex];
+
+            if (currentCharIndex < currentPhrase.length) {
+                typewriterElement.textContent += currentPhrase.charAt(currentCharIndex);
+                currentCharIndex++;
+                setTimeout(typeWriter, typingSpeed);
+            } else {
+                setTimeout(deleteWriter, delayBetweenPhrases);
+            }
+        }
+
+        function deleteWriter() {
+            const currentPhrase = phrases[currentPhraseIndex];
+
+            if (currentCharIndex > 0) {
+                currentCharIndex--;
+                typewriterElement.textContent = currentPhrase.substring(0, currentCharIndex);
+                setTimeout(deleteWriter, deleteSpeed);
+            } else {
+                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                setTimeout(typeWriter, 500);
+            }
+        }
+
+        // Iniciar el efecto cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', typeWriter);
+        } else {
+            typeWriter();
+        }
+    </script>
+</body>
+</html>
