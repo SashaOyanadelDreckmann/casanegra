@@ -946,7 +946,7 @@
 
         <div class="suites-grid">
             <!-- Montenegro -->
-            <div class="suite-card" onclick="openReservaModal('Habitación Montenegro', 65000)">
+            <div class="suite-card" data-suite="Habitación Montenegro" data-price="65000">
                 <img src="iloveimg-converted/IMG_8614.jpg" alt="Habitación Montenegro" class="suite-image" id="img-montenegro">
                 <div class="suite-content">
                     <div class="suite-tag">Matrimonial</div>
@@ -964,7 +964,7 @@
             </div>
 
             <!-- Bohemia -->
-            <div class="suite-card" onclick="openReservaModal('Habitación Bohemia', 32000)">
+            <div class="suite-card" data-suite="Habitación Bohemia" data-price="32000">
                 <img src="iloveimg-converted/IMG_8726.jpg" alt="Habitación Bohemia" class="suite-image" id="img-bohemia">
                 <div class="suite-content">
                     <div class="suite-tag">Individual</div>
@@ -982,7 +982,7 @@
             </div>
 
             <!-- Lastarría -->
-            <div class="suite-card" onclick="openReservaModal('Habitación Lastarría', 44000)">
+            <div class="suite-card" data-suite="Habitación Lastarría" data-price="44000">
                 <img src="iloveimg-converted/IMG_8689.jpg" alt="Habitación Lastarría" class="suite-image" id="img-lastarria">
                 <div class="suite-content">
                     <div class="suite-tag">Individual + Escritorio</div>
@@ -1009,7 +1009,7 @@
 
         <div class="suites-grid">
             <!-- Jacuzzi Tropical -->
-            <div class="suite-card" onclick="openReservaModal('Jacuzzi Tropical', 25000, 'service')" style="border: 2px solid #FFD700;">
+            <div class="suite-card" data-suite="Jacuzzi Tropical" data-price="25000" data-service="service" style="border: 2px solid #FFD700;">
                 <img src="iloveimg-converted/IMG_8547.jpg" alt="Jacuzzi Tropical" class="suite-image">
                 <div class="suite-content">
                     <div class="suite-tag" style="background: #FFD700; color: #000;">EXPERIENCIA</div>
@@ -1033,12 +1033,12 @@
         <h2>Recorre los Espacios</h2>
 
         <div style="display: flex; gap: 1.5rem; margin-bottom: 4rem; border-bottom: 1px solid rgba(245, 241, 237, 0.2); padding-bottom: 2rem; flex-wrap: nowrap; overflow-x: auto;" id="categoriaTabs">
-            <button class="categoria-tab active" data-categoria="jacuzzi" onclick="cambiarCategoria('jacuzzi', this)">Jacuzzi & Terraza</button>
-            <button class="categoria-tab" data-categoria="montenegro" onclick="cambiarCategoria('montenegro', this)">Suite Montenegro</button>
-            <button class="categoria-tab" data-categoria="bohemia" onclick="cambiarCategoria('bohemia', this)">Suite Bohemia</button>
-            <button class="categoria-tab" data-categoria="lastarria" onclick="cambiarCategoria('lastarria', this)">Suite Lastarría</button>
-            <button class="categoria-tab" data-categoria="sala" onclick="cambiarCategoria('sala', this)">Sala de Estar</button>
-            <button class="categoria-tab" data-categoria="workspace" onclick="cambiarCategoria('workspace', this)">Espacios de Trabajo</button>
+            <button class="categoria-tab active" data-categoria="jacuzzi" aria-selected="true">Jacuzzi & Terraza</button>
+            <button class="categoria-tab" data-categoria="montenegro" aria-selected="false">Suite Montenegro</button>
+            <button class="categoria-tab" data-categoria="bohemia" aria-selected="false">Suite Bohemia</button>
+            <button class="categoria-tab" data-categoria="lastarria" aria-selected="false">Suite Lastarría</button>
+            <button class="categoria-tab" data-categoria="sala" aria-selected="false">Sala de Estar</button>
+            <button class="categoria-tab" data-categoria="workspace" aria-selected="false">Espacios de Trabajo</button>
         </div>
 
         <style>
@@ -1582,7 +1582,7 @@
     <!-- MODAL DE RESERVA PROFESIONAL -->
     <div id="reservaModal" class="reserva-modal">
         <div class="reserva-modal-content">
-            <button class="reserva-modal-close" onclick="closeReservaModal()">+</button>
+            <button type="button" class="reserva-modal-close" id="btnCloseModal" aria-label="Cerrar modal de reserva">+</button>
 
             <h2 style="margin-bottom: 0.5rem; color: var(--negro);">Completar Reserva</h2>
             <p style="color: var(--gris); margin-bottom: 1.5rem; font-size: 0.9rem;">Proporciona tus datos y revisa el total antes de confirmar</p>
@@ -1598,131 +1598,136 @@
                 <input type="hidden" id="modalSuitePrice" value="">
                 <input type="hidden" id="modalServiceType" value="">
 
+                <!-- CSRF Token -->
+                <input type="hidden" id="csrfToken" value="">
+
                 <!-- Datos personales -->
-                <div>
-                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Nombre Completo</label>
-                    <input type="text" id="modalNombre" placeholder="Tu nombre" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required>
+                <div class="form-group">
+                    <label for="modalNombre" class="form-label">Nombre Completo</label>
+                    <input type="text" id="modalNombre" class="form-field" placeholder="Tu nombre" required aria-required="true" aria-label="Nombre Completo requerido">
                 </div>
 
-                <div>
-                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Email</label>
-                    <input type="email" id="modalEmail" placeholder="tu@email.com" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required>
+                <div class="form-group">
+                    <label for="modalEmail" class="form-label">Email</label>
+                    <input type="email" id="modalEmail" class="form-field" placeholder="tu@email.com" required aria-required="true" aria-label="Email requerido">
+                    <span class="form-error" id="emailError"></span>
                 </div>
 
-                <div>
-                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Teléfono</label>
-                    <input type="tel" id="modalTelefono" placeholder="+56 9 XXXX XXXX" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required>
+                <div class="form-group">
+                    <label for="modalTelefono" class="form-label">Teléfono</label>
+                    <input type="tel" id="modalTelefono" class="form-field" placeholder="+56 9 XXXX XXXX" required aria-required="true" aria-label="Teléfono requerido">
                 </div>
 
                 <!-- Fechas -->
-                <div>
-                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Fechas de Hospedaje</label>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div>
-                            <label style="color: var(--gris); font-size: 0.8rem; display: block; margin-bottom: 0.3rem;">Entrada</label>
-                            <input type="date" id="modalFechaEntrada" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required onchange="calcularTotalModal()">
+                <div class="form-group">
+                    <legend class="form-label">Fechas de Hospedaje</legend>
+                    <div class="form-dates-grid">
+                        <div class="form-group">
+                            <label for="modalFechaEntrada" class="form-label form-label-small">Entrada</label>
+                            <input type="date" id="modalFechaEntrada" class="form-field" required aria-required="true" aria-label="Fecha de entrada requerida">
                         </div>
-                        <div>
-                            <label style="color: var(--gris); font-size: 0.8rem; display: block; margin-bottom: 0.3rem;">Salida</label>
-                            <input type="date" id="modalFechaSalida" style="width: 100%; padding: 0.8rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige-claro); color: var(--negro);" required onchange="calcularTotalModal()">
+                        <div class="form-group">
+                            <label for="modalFechaSalida" class="form-label form-label-small">Salida</label>
+                            <input type="date" id="modalFechaSalida" class="form-field" required aria-required="true" aria-label="Fecha de salida requerida">
+                            <span class="form-error" id="dateError"></span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Servicios adicionales (solo para suites) -->
                 <div id="serviciosContainer" style="display: none;">
-                    <label style="color: var(--negro); font-weight: 600; display: block; margin-bottom: 0.5rem;">Servicios Adicionales</label>
+                    <label for="serviciosSelect" class="form-label">Servicios Adicionales</label>
                     <p style="color: var(--gris); font-size: 0.85rem; margin-bottom: 1.5rem; padding: 0.8rem; background: rgba(255, 215, 0, 0.08); border-radius: 4px; border-left: 2px solid #FFD700;">Selecciona la cantidad de veces que deseas cada servicio. Puedes distribuir estos servicios en los diferentes días de tu hospedaje según lo prefieras. Por ejemplo, si tienes 3 noches, puedes contratar desayuno para 2 días o limpiezas en diferentes fechas.</p>
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
-                            <div style="flex: 1;">
-                                <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Jacuzzi Privado 2h</div>
-                                <div style="color: var(--gris); font-size: 0.85rem;">Acceso por 2 horas</div>
+                    <div class="servicios-list">
+                        <div class="servicio-item">
+                            <div class="servicio-info">
+                                <div class="servicio-nombre">Jacuzzi Privado 2h</div>
+                                <div class="servicio-desc">Acceso por 2 horas</div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="number" class="servicio-cantidad" data-nombre="Jacuzzi Privado 2h" data-precio="20000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
-                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$20.000</span>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
-                            <div style="flex: 1;">
-                                <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Desayuno</div>
-                                <div style="color: var(--gris); font-size: 0.85rem;">Aviso con 1 día de anticipación</div>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="number" class="servicio-cantidad" data-nombre="Desayuno" data-precio="8000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
-                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$8.000</span>
+                            <div class="servicio-control">
+                                <input type="number" class="servicio-cantidad servicio-input" data-nombre="Jacuzzi Privado 2h" data-precio="20000" value="0" min="0" max="0" aria-label="Cantidad de Jacuzzi Privado 2h">
+                                <span class="servicio-precio">$20.000</span>
                             </div>
                         </div>
 
-                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
-                            <div style="flex: 1;">
-                                <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Limpieza y Cambio de Sábanas</div>
-                                <div style="color: var(--gris); font-size: 0.85rem;">Servicio completo</div>
+                        <div class="servicio-item">
+                            <div class="servicio-info">
+                                <div class="servicio-nombre">Desayuno</div>
+                                <div class="servicio-desc">Aviso con 1 día de anticipación</div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="number" class="servicio-cantidad" data-nombre="Limpieza y Cambio de Sábanas" data-precio="10000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
-                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$10.000</span>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
-                            <div style="flex: 1;">
-                                <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Lavandería</div>
-                                <div style="color: var(--gris); font-size: 0.85rem;">Lavado de ropa o acceso a lavadora</div>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="number" class="servicio-cantidad" data-nombre="Lavandería" data-precio="10000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
-                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$10.000</span>
+                            <div class="servicio-control">
+                                <input type="number" class="servicio-cantidad servicio-input" data-nombre="Desayuno" data-precio="8000" value="0" min="0" max="0" aria-label="Cantidad de Desayuno">
+                                <span class="servicio-precio">$8.000</span>
                             </div>
                         </div>
 
-                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
-                            <div style="flex: 1;">
-                                <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Planchado + Lavado de Ropa</div>
-                                <div style="color: var(--gris); font-size: 0.85rem;">Servicio profesional</div>
+                        <div class="servicio-item">
+                            <div class="servicio-info">
+                                <div class="servicio-nombre">Limpieza y Cambio de Sábanas</div>
+                                <div class="servicio-desc">Servicio completo</div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="number" class="servicio-cantidad" data-nombre="Planchado + Lavado de Ropa" data-precio="20000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
-                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$20.000</span>
+                            <div class="servicio-control">
+                                <input type="number" class="servicio-cantidad servicio-input" data-nombre="Limpieza y Cambio de Sábanas" data-precio="10000" value="0" min="0" max="0" aria-label="Cantidad de Limpieza y Cambio de Sábanas">
+                                <span class="servicio-precio">$10.000</span>
                             </div>
                         </div>
 
-                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--beige-claro); border-radius: 4px;">
-                            <div style="flex: 1;">
-                                <div style="color: var(--negro); font-weight: 500; font-size: 0.95rem;">Experiencia Completa Jacuzzi</div>
-                                <div style="color: var(--gris); font-size: 0.85rem;">Jacuzzi + vino + tabla para picar</div>
+                        <div class="servicio-item">
+                            <div class="servicio-info">
+                                <div class="servicio-nombre">Lavandería</div>
+                                <div class="servicio-desc">Lavado de ropa o acceso a lavadora</div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="number" class="servicio-cantidad" data-nombre="Experiencia Completa Jacuzzi" data-precio="43000" value="0" min="0" max="0" onchange="calcularTotalModal()" style="width: 60px; padding: 0.6rem; border: 1px solid var(--gris); border-radius: 4px; background: var(--beige); color: var(--negro); text-align: center;">
-                                <span style="color: var(--negro); font-weight: 600; min-width: 70px; text-align: right;">$43.000</span>
+                            <div class="servicio-control">
+                                <input type="number" class="servicio-cantidad servicio-input" data-nombre="Lavandería" data-precio="10000" value="0" min="0" max="0" aria-label="Cantidad de Lavandería">
+                                <span class="servicio-precio">$10.000</span>
+                            </div>
+                        </div>
+
+                        <div class="servicio-item">
+                            <div class="servicio-info">
+                                <div class="servicio-nombre">Planchado + Lavado de Ropa</div>
+                                <div class="servicio-desc">Servicio profesional</div>
+                            </div>
+                            <div class="servicio-control">
+                                <input type="number" class="servicio-cantidad servicio-input" data-nombre="Planchado + Lavado de Ropa" data-precio="20000" value="0" min="0" max="0" aria-label="Cantidad de Planchado + Lavado de Ropa">
+                                <span class="servicio-precio">$20.000</span>
+                            </div>
+                        </div>
+
+                        <div class="servicio-item">
+                            <div class="servicio-info">
+                                <div class="servicio-nombre">Experiencia Completa Jacuzzi</div>
+                                <div class="servicio-desc">Jacuzzi + vino + tabla para picar</div>
+                            </div>
+                            <div class="servicio-control">
+                                <input type="number" class="servicio-cantidad servicio-input" data-nombre="Experiencia Completa Jacuzzi" data-precio="43000" value="0" min="0" max="0" aria-label="Cantidad de Experiencia Completa Jacuzzi">
+                                <span class="servicio-precio">$43.000</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Resumen de precios -->
-                <div style="background: var(--beige-claro); padding: 1.2rem; border-radius: 8px; border: 1px solid rgba(255, 215, 0, 0.3);">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(245, 241, 237, 0.2);">
-                        <span style="color: var(--gris);">Tarifa Base:</span>
-                        <span style="color: var(--negro); font-weight: 600;">$<span id="modalTarifaBase">0</span></span>
+                <div class="resumen-precios">
+                    <div class="resumen-item">
+                        <span class="resumen-label">Tarifa Base:</span>
+                        <span class="resumen-valor">$<span id="modalTarifaBase">0</span></span>
                     </div>
                     <div id="serviciosResumen" style="display: none;">
-                        <div style="font-size: 0.9rem; color: var(--gris); margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(245, 241, 237, 0.2);" id="serviciosDetalles"></div>
+                        <div style="font-size: 0.9rem;" id="serviciosDetalles"></div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: var(--negro); font-weight: 700; font-size: 1.1rem;">Total a Pagar:</span>
-                        <span style="color: #FFD700; font-weight: 700; font-size: 1.4rem;">$<span id="modalTotal">0</span></span>
+                    <div class="resumen-item total">
+                        <span class="resumen-label">Total a Pagar:</span>
+                        <span class="resumen-valor">$<span id="modalTotal">0</span></span>
                     </div>
                 </div>
 
                 <!-- Botones -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <button type="button" onclick="closeReservaModal()" style="background: var(--beige); color: var(--negro); padding: 1rem; border: 1px solid var(--gris); border-radius: 4px; font-weight: 600; cursor: pointer; transition: all 300ms;">
+                <div class="form-buttons-grid">
+                    <button type="button" id="btnCancelModal" class="btn-cancel" aria-label="Cancelar formulario de reserva">
                         Cancelar
                     </button>
-                    <button type="button" onclick="enviarReservaModal(event)" style="background: #FFD700; color: #000; padding: 1rem; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 1rem; transition: all 300ms;">
+                    <button type="submit" id="btnSubmitModal" class="btn-submit" aria-label="Enviar formulario de reserva">
                         Confirmar Reserva
                     </button>
                 </div>
@@ -1731,6 +1736,7 @@
     </div>
 
     <style>
+        /* Modal Styles */
         .reserva-modal {
             display: none;
             position: fixed;
@@ -1772,6 +1778,7 @@
             align-items: center;
             justify-content: center;
             transition: all 300ms;
+            border-radius: 4px;
         }
 
         .reserva-modal-close:hover {
@@ -1779,17 +1786,371 @@
             opacity: 0.6;
         }
 
+        .reserva-modal-close:focus {
+            outline: 2px solid #FFD700;
+            outline-offset: 2px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            color: var(--negro);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-label-small {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--gris);
+            margin-bottom: 0.3rem;
+        }
+
+        .form-field {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--gris);
+            border-radius: 4px;
+            background: var(--beige-claro);
+            color: var(--negro);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 200ms ease;
+        }
+
+        .form-field:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+            background: var(--beige);
+        }
+
+        .form-field:invalid:not(:placeholder-shown) {
+            border-color: #ff6b6b;
+        }
+
+        .form-dates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-error {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .form-buttons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-cancel,
+        .btn-submit {
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 300ms ease;
+            font-size: 1rem;
+        }
+
+        .btn-cancel {
+            background: var(--beige);
+            color: var(--negro);
+            border: 1px solid var(--gris);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(245, 241, 237, 0.8);
+            border-color: var(--negro);
+        }
+
+        .btn-cancel:focus {
+            outline: 2px solid #FFD700;
+            outline-offset: 2px;
+        }
+
+        .btn-submit {
+            background: #FFD700;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .btn-submit:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-submit:focus {
+            outline: 2px solid var(--negro);
+            outline-offset: 2px;
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Services Styles */
+        .servicios-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .servicio-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--beige-claro);
+            border-radius: 4px;
+            transition: all 200ms ease;
+        }
+
+        .servicio-item:hover {
+            background: var(--beige);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .servicio-info {
+            flex: 1;
+        }
+
+        .servicio-nombre {
+            color: var(--negro);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .servicio-desc {
+            color: var(--gris);
+            font-size: 0.85rem;
+        }
+
+        .servicio-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .servicio-input {
+            width: 60px;
+            padding: 0.6rem;
+            border: 1px solid var(--gris);
+            border-radius: 4px;
+            background: var(--beige);
+            color: var(--negro);
+            text-align: center;
+            font-family: inherit;
+            transition: all 200ms ease;
+        }
+
+        .servicio-input:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+        }
+
+        .servicio-precio {
+            color: var(--negro);
+            font-weight: 600;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        /* Price Summary Styles */
+        .resumen-precios {
+            background: var(--beige-claro);
+            padding: 1.2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .resumen-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(245, 241, 237, 0.2);
+        }
+
+        .resumen-item.total {
+            border-top: 2px solid var(--negro);
+            border-bottom: none;
+            padding-top: 1.5rem;
+            padding-bottom: 0;
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .resumen-label {
+            color: var(--gris);
+        }
+
+        .resumen-item.total .resumen-label {
+            font-weight: 700;
+            color: var(--negro);
+            text-transform: uppercase;
+        }
+
+        .resumen-valor {
+            color: var(--negro);
+            font-weight: 600;
+        }
+
+        .resumen-item.total .resumen-valor {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #FFD700;
+        }
+
+        @media (max-width: 768px) {
+            .form-dates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .servicio-control {
+                flex-wrap: wrap;
+            }
+        }
+
         @media (max-width: 480px) {
             .reserva-modal-content {
                 padding: 1.5rem;
                 max-height: 95vh;
             }
+
+            .form-buttons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-cancel,
+            .btn-submit {
+                width: 100%;
+            }
+
+            .servicio-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .servicio-control {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
     </style>
 
     <script>
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Initialize CSRF token
+        function initializeCSRFToken() {
+            const token = 'csrf_' + Math.random().toString(36).substr(2, 9);
+            document.getElementById('csrfToken').value = token;
+            sessionStorage.setItem('csrfToken', token);
+        }
+
+        // Validate email with regex
+        function validateEmail(email) {
+            return emailRegex.test(email);
+        }
+
+        // Validate form fields
+        function validateReservaForm() {
+            const nombre = document.getElementById('modalNombre').value.trim();
+            const email = document.getElementById('modalEmail').value.trim();
+            const telefono = document.getElementById('modalTelefono').value.trim();
+            const fechaEntrada = document.getElementById('modalFechaEntrada').value;
+            const fechaSalida = document.getElementById('modalFechaSalida').value;
+            const emailError = document.getElementById('emailError');
+            const dateError = document.getElementById('dateError');
+
+            let isValid = true;
+
+            // Clear previous errors
+            emailError.classList.remove('show');
+            dateError.classList.remove('show');
+
+            // Validate nombre
+            if (!nombre) {
+                showError('Por favor ingresa tu nombre completo');
+                return false;
+            }
+
+            // Validate email with regex
+            if (!email || !validateEmail(email)) {
+                emailError.textContent = 'Por favor ingresa un email válido';
+                emailError.classList.add('show');
+                return false;
+            }
+
+            // Validate telefono
+            if (!telefono) {
+                showError('Por favor ingresa tu teléfono');
+                return false;
+            }
+
+            // Validate dates
+            if (!fechaEntrada || !fechaSalida) {
+                dateError.textContent = 'Por favor selecciona las fechas de entrada y salida';
+                dateError.classList.add('show');
+                return false;
+            }
+
+            const entrada = new Date(fechaEntrada);
+            const salida = new Date(fechaSalida);
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+
+            // Check if dates are valid (entry date should be today or later)
+            if (entrada < hoy) {
+                dateError.textContent = 'La fecha de entrada no puede ser en el pasado';
+                dateError.classList.add('show');
+                return false;
+            }
+
+            // Check if exit date is after entry date
+            if (entrada >= salida) {
+                dateError.textContent = 'La fecha de salida debe ser posterior a la fecha de entrada';
+                dateError.classList.add('show');
+                return false;
+            }
+
+            return true;
+        }
+
+        function showError(message) {
+            alert(message);
+        }
+
         function enviarReservaModal(event) {
             event.preventDefault();
+
+            if (!validateReservaForm()) {
+                return;
+            }
 
             const nombre = document.getElementById('modalNombre').value.trim();
             const email = document.getElementById('modalEmail').value.trim();
@@ -1799,58 +2160,31 @@
             const fechaSalida = document.getElementById('modalFechaSalida').value;
             const suitePrice = parseInt(document.getElementById('modalSuitePrice').value);
             const serviceType = document.getElementById('modalServiceType').value;
-
-            // Validaciones
-            if (!nombre) {
-                alert('Por favor ingresa tu nombre completo');
-                return;
-            }
-            if (!email) {
-                alert('Por favor ingresa un email válido');
-                return;
-            }
-            if (!telefono) {
-                alert('Por favor ingresa tu teléfono');
-                return;
-            }
-            if (!fechaEntrada || !fechaSalida) {
-                alert('Por favor selecciona las fechas de entrada y salida');
-                return;
-            }
+            const csrfToken = document.getElementById('csrfToken').value;
 
             const entrada = new Date(fechaEntrada);
             const salida = new Date(fechaSalida);
-
-            if (entrada >= salida) {
-                alert('La fecha de salida debe ser posterior a la fecha de entrada');
-                return;
-            }
-
             const nights = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
 
-            // Calcular servicios - ahora con cantidades
+            // Calculate services
             let servicios = [];
             let serviciosTotal = 0;
             document.querySelectorAll('.servicio-cantidad').forEach(input => {
                 const cantidad = parseInt(input.value) || 0;
                 if (cantidad > 0) {
-                    const nombre = input.dataset.nombre;
+                    const servicioNombre = input.dataset.nombre;
                     const precio = parseInt(input.dataset.precio);
-                    servicios.push(nombre + ' (x' + cantidad + ')');
+                    servicios.push(servicioNombre + ' (x' + cantidad + ')');
                     serviciosTotal += precio * cantidad;
                 }
             });
 
             const serviciosStr = servicios.length > 0 ? servicios.join(', ') : 'Ninguno';
-            let total = 0;
+            let total = serviceType === 'service'
+                ? suitePrice + serviciosTotal
+                : (suitePrice * nights) + serviciosTotal;
 
-            if (serviceType === 'service') {
-                total = suitePrice + serviciosTotal;
-            } else {
-                total = (suitePrice * nights) + serviciosTotal;
-            }
-
-            // Preparar datos de reserva
+            // Prepare reservation data
             const reservaData = {
                 name: nombre,
                 email: email,
@@ -1861,17 +2195,21 @@
                 nights: nights,
                 guests: '1',
                 services: serviciosStr,
-                total: total
+                total: total,
+                csrfToken: csrfToken
             };
 
-            // Enviar a servidor
-            const enviarBtn = event.currentTarget;
+            const enviarBtn = document.getElementById('btnSubmitModal');
+            const originalText = enviarBtn.textContent;
             enviarBtn.disabled = true;
             enviarBtn.textContent = 'Procesando...';
 
             fetch('/api/reservar', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': csrfToken
+                },
                 body: JSON.stringify(reservaData)
             })
             .then(res => res.json())
@@ -1880,17 +2218,100 @@
                     alert('Reserva confirmada\n\nHemos enviado un email de confirmación a ' + email);
                     closeReservaModal();
                 } else {
-                    alert('Error al procesar la reserva: ' + result.error + '\n\nIntenta de nuevo o contacta directamente');
+                    showError('Error al procesar la reserva: ' + (result.error || 'Error desconocido'));
                     enviarBtn.disabled = false;
-                    enviarBtn.textContent = 'Confirmar Reserva';
+                    enviarBtn.textContent = originalText;
                 }
             })
             .catch(err => {
-                alert('Error de conexión. Por favor intenta de nuevo.');
+                showError('Error de conexión. Por favor intenta de nuevo.');
                 enviarBtn.disabled = false;
-                enviarBtn.textContent = 'Confirmar Reserva';
+                enviarBtn.textContent = originalText;
                 console.error('Error:', err);
             });
+        }
+
+        // Setup event listeners when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCSRFToken();
+
+            const btnSubmit = document.getElementById('btnSubmitModal');
+            const btnCancel = document.getElementById('btnCancelModal');
+            const btnClose = document.getElementById('btnCloseModal');
+            const modalForm = document.getElementById('reservaModalForm');
+
+            if (btnSubmit && modalForm) {
+                btnSubmit.addEventListener('click', enviarReservaModal);
+            }
+
+            if (btnCancel) {
+                btnCancel.addEventListener('click', closeReservaModal);
+            }
+
+            if (btnClose) {
+                btnClose.addEventListener('click', closeReservaModal);
+            }
+
+            // Add event listeners to date fields for validation
+            const fechaEntrada = document.getElementById('modalFechaEntrada');
+            const fechaSalida = document.getElementById('modalFechaSalida');
+            const emailField = document.getElementById('modalEmail');
+
+            if (fechaEntrada) {
+                fechaEntrada.addEventListener('change', calcularTotalModal);
+            }
+            if (fechaSalida) {
+                fechaSalida.addEventListener('change', calcularTotalModal);
+            }
+            if (emailField) {
+                emailField.addEventListener('blur', function() {
+                    if (this.value && !validateEmail(this.value.trim())) {
+                        document.getElementById('emailError').textContent = 'Email inválido';
+                        document.getElementById('emailError').classList.add('show');
+                    } else {
+                        document.getElementById('emailError').classList.remove('show');
+                    }
+                });
+            }
+
+            // Add event listeners to service quantity inputs
+            document.querySelectorAll('.servicio-input').forEach(input => {
+                input.addEventListener('change', calcularTotalModal);
+                input.addEventListener('input', calcularTotalModal);
+            });
+
+            // Add event listeners to suite cards
+            document.querySelectorAll('.suite-card').forEach(card => {
+                const selectBtn = card.querySelector('.suite-select-btn');
+                if (selectBtn) {
+                    selectBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const suite = card.dataset.suite;
+                        const price = parseInt(card.dataset.price);
+                        const serviceType = card.dataset.service || '';
+                        openReservaModal(suite, price, serviceType);
+                    });
+                }
+            });
+
+            // Add event listeners to category tabs
+            document.querySelectorAll('.categoria-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const categoria = this.dataset.categoria;
+
+                    // Update active state
+                    document.querySelectorAll('.categoria-tab').forEach(t => {
+                        t.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    this.classList.add('active');
+                    this.setAttribute('aria-selected', 'true');
+
+                    // Call category change function
+                    cambiarCategoria(categoria, this);
+                });
+            });
+        });
         }
     </script>
 </body>
