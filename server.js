@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 require('dotenv').config();
 
 const app = express();
@@ -8,8 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const APP_URL = process.env.APP_URL || 'https://casanegra-production.up.railway.app';
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'casanegra.contacto.cl@gmail.com';
-const GMAIL_USER = process.env.GMAIL_USER || CONTACT_EMAIL;
-const GMAIL_PASSWORD = process.env.GMAIL_PASSWORD || '';
+const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
+const EMAIL_FROM = process.env.EMAIL_FROM || 'Casa Negra <onboarding@resend.dev>';
 const MAX_REQUESTS_PER_WINDOW = 10;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const EMAIL_TIMEOUT_MS = 15000;
@@ -121,6 +121,27 @@ function buildReservationSummary({ item, checkIn, checkOut, nights, guestName, p
   `;
 }
 
+function buildAdminReservationSummary({ item, checkIn, checkOut, nights, guestName, phone, email, selectedServices, total }) {
+  const servicesMarkup = selectedServices.length > 0
+    ? `<ul>${selectedServices.map((service) => `<li>${escapeHtml(service.name)} x${service.quantity} - $${formatCurrency(service.subtotal)}</li>`).join('')}</ul>`
+    : '<p>Ninguno</p>';
+
+  return `
+    <h2>Nueva solicitud de reserva</h2>
+    <p><strong>Huésped:</strong> ${escapeHtml(guestName)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+    <p><strong>Teléfono:</strong> ${escapeHtml(phone)}</p>
+    <p><strong>Servicio/Habitación:</strong> ${escapeHtml(item.name)}</p>
+    <p><strong>Check-in:</strong> ${escapeHtml(checkIn)}</p>
+    <p><strong>Check-out:</strong> ${escapeHtml(checkOut)}</p>
+    <p><strong>Noches:</strong> ${nights}</p>
+    <p><strong>Total estimado:</strong> $${formatCurrency(total)}</p>
+    <h3>Servicios adicionales</h3>
+    ${servicesMarkup}
+    <p><strong>Hora de solicitud:</strong> ${new Date().toLocaleString('es-CL')}</p>
+  `;
+}
+
 function validateReservationPayload(body) {
   const guestName = cleanString(body.name, 120);
   const email = cleanString(body.email, 150).toLowerCase();
@@ -228,21 +249,6 @@ app.use(express.static(path.join(__dirname), {
   }
 }));
 
-if (!GMAIL_PASSWORD || GMAIL_PASSWORD.includes('tu_contraseña')) {
-  console.warn('GMAIL_PASSWORD no está configurada correctamente');
-}
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  connectionTimeout: EMAIL_TIMEOUT_MS,
-  greetingTimeout: EMAIL_TIMEOUT_MS,
-  socketTimeout: EMAIL_TIMEOUT_MS,
-  auth: {
-    user: GMAIL_USER,
-    pass: GMAIL_PASSWORD
-  }
-});
-
 function withTimeout(promise, timeoutMs, label) {
   return Promise.race([
     promise,
@@ -254,17 +260,40 @@ function withTimeout(promise, timeoutMs, label) {
   ]);
 }
 
-transporter.verify((error) => {
-  if (error) {
-    console.error('Error de configuración de Gmail:', error.message);
-  } else {
-    console.log(`Gmail configurado correctamente para ${GMAIL_USER}`);
+const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
+
+if (!RESEND_API_KEY) {
+  console.warn('RESEND_API_KEY no está configurada correctamente');
+}
+
+async function sendEmailWithResend({ to, subject, html, replyTo }) {
+  if (!resend) {
+    throw new Error('Resend no está configurado. Falta RESEND_API_KEY.');
   }
-});
+
+  const payload = {
+    from: EMAIL_FROM,
+    to,
+    subject,
+    html
+  };
+
+  if (replyTo) {
+    payload.replyTo = replyTo;
+  }
+
+  const result = await resend.emails.send(payload);
+
+  if (result?.error) {
+    throw new Error(result.error.message || 'Resend no pudo enviar el correo.');
+  }
+
+  return result;
+}
 
 app.post('/api/reservar', applyRateLimit, async (req, res) => {
   try {
-    if (!GMAIL_USER || !GMAIL_PASSWORD) {
+    if (!RESEND_API_KEY) {
       return res.status(503).json({
         success: false,
         error: 'El correo de reservas no está configurado todavía.'
@@ -288,12 +317,7 @@ app.post('/api/reservar', applyRateLimit, async (req, res) => {
       total
     } = reservation;
 
-    const servicesText = selectedServices.length > 0
-      ? selectedServices.map((service) => `${service.name} (x${service.quantity})`).join(', ')
-      : 'Ninguno';
-
     const customerEmail = {
-      from: GMAIL_USER,
       to: email,
       subject: `Solicitud de reserva recibida - Casa Negra ${item.name}`,
       html: buildReservationSummary({
@@ -310,32 +334,30 @@ app.post('/api/reservar', applyRateLimit, async (req, res) => {
     };
 
     const adminEmail = {
-      from: GMAIL_USER,
       to: CONTACT_EMAIL,
       subject: `Nueva solicitud - ${guestName} - ${item.name}`,
-      html: `
-        <h2>Nueva solicitud de reserva</h2>
-        <p><strong>Huésped:</strong> ${escapeHtml(guestName)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Teléfono:</strong> ${escapeHtml(phone)}</p>
-        <p><strong>Servicio/Habitación:</strong> ${escapeHtml(item.name)}</p>
-        <p><strong>Check-in:</strong> ${escapeHtml(checkIn)}</p>
-        <p><strong>Check-out:</strong> ${escapeHtml(checkOut)}</p>
-        <p><strong>Noches:</strong> ${nights}</p>
-        <p><strong>Servicios:</strong> ${escapeHtml(servicesText)}</p>
-        <p><strong>Total estimado:</strong> $${formatCurrency(total)}</p>
-        <p><strong>Hora de solicitud:</strong> ${new Date().toLocaleString('es-CL')}</p>
-      `
+      html: buildAdminReservationSummary({
+        item,
+        checkIn,
+        checkOut,
+        nights,
+        guestName,
+        phone,
+        email,
+        selectedServices,
+        total
+      }),
+      replyTo: email
     };
 
     await withTimeout(
-      transporter.sendMail(customerEmail),
+      sendEmailWithResend(customerEmail),
       EMAIL_TIMEOUT_MS,
       'El envío del correo al huésped'
     );
 
     await withTimeout(
-      transporter.sendMail(adminEmail),
+      sendEmailWithResend(adminEmail),
       EMAIL_TIMEOUT_MS,
       'El envío del correo al administrador'
     );
