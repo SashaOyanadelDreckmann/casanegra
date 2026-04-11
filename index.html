@@ -2225,13 +2225,17 @@
             setFormStatus('');
 
             try {
+                const controller = new AbortController();
+                const timeoutId = window.setTimeout(() => controller.abort(), 20000);
                 const response = await fetch('/api/reservar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(reservaData)
+                    body: JSON.stringify(reservaData),
+                    signal: controller.signal
                 });
+                window.clearTimeout(timeoutId);
 
                 const result = await response.json();
 
@@ -2244,7 +2248,10 @@
                     closeReservaModal();
                 }, 700);
             } catch (error) {
-                setFormStatus(error.message || 'Error de conexión. Por favor intenta de nuevo.');
+                const message = error.name === 'AbortError'
+                    ? 'La reserva tardó demasiado en responder. Revisa Railway y la configuración del correo.'
+                    : (error.message || 'Error de conexión. Por favor intenta de nuevo.');
+                setFormStatus(message);
                 enviarBtn.disabled = false;
                 enviarBtn.textContent = originalText;
             }

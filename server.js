@@ -12,6 +12,7 @@ const GMAIL_USER = process.env.GMAIL_USER || CONTACT_EMAIL;
 const GMAIL_PASSWORD = process.env.GMAIL_PASSWORD || '';
 const MAX_REQUESTS_PER_WINDOW = 10;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+const EMAIL_TIMEOUT_MS = 15000;
 
 const RESERVABLES = {
   'Habitacion Montenegro': { name: 'Habitación Montenegro', type: 'suite', basePrice: 65000, minNights: 1 },
@@ -233,11 +234,25 @@ if (!GMAIL_PASSWORD || GMAIL_PASSWORD.includes('tu_contraseña')) {
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
+  connectionTimeout: EMAIL_TIMEOUT_MS,
+  greetingTimeout: EMAIL_TIMEOUT_MS,
+  socketTimeout: EMAIL_TIMEOUT_MS,
   auth: {
     user: GMAIL_USER,
     pass: GMAIL_PASSWORD
   }
 });
+
+function withTimeout(promise, timeoutMs, label) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error(`${label} excedió el tiempo de espera`));
+      }, timeoutMs);
+    })
+  ]);
+}
 
 transporter.verify((error) => {
   if (error) {
@@ -249,6 +264,13 @@ transporter.verify((error) => {
 
 app.post('/api/reservar', applyRateLimit, async (req, res) => {
   try {
+    if (!GMAIL_USER || !GMAIL_PASSWORD) {
+      return res.status(503).json({
+        success: false,
+        error: 'El correo de reservas no está configurado todavía.'
+      });
+    }
+
     const { reservation, error } = validateReservationPayload(req.body);
     if (error) {
       return res.status(400).json({ success: false, error });
@@ -306,8 +328,17 @@ app.post('/api/reservar', applyRateLimit, async (req, res) => {
       `
     };
 
-    await transporter.sendMail(customerEmail);
-    await transporter.sendMail(adminEmail);
+    await withTimeout(
+      transporter.sendMail(customerEmail),
+      EMAIL_TIMEOUT_MS,
+      'El envío del correo al huésped'
+    );
+
+    await withTimeout(
+      transporter.sendMail(adminEmail),
+      EMAIL_TIMEOUT_MS,
+      'El envío del correo al administrador'
+    );
 
     return res.json({
       success: true,
@@ -323,7 +354,7 @@ app.post('/api/reservar', applyRateLimit, async (req, res) => {
     console.error('Error al procesar reserva:', error);
     return res.status(500).json({
       success: false,
-      error: 'No pudimos procesar la solicitud en este momento.'
+      error: error.message || 'No pudimos procesar la solicitud en este momento.'
     });
   }
 });
