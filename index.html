@@ -2286,6 +2286,8 @@
             // Add event listeners to suite cards
             document.querySelectorAll('.suite-card').forEach(card => {
                 const selectBtn = card.querySelector('.suite-select-btn');
+
+                // Click on button
                 if (selectBtn) {
                     selectBtn.addEventListener('click', function(e) {
                         e.stopPropagation();
@@ -2295,6 +2297,16 @@
                         openReservaModal(suite, price, serviceType);
                     });
                 }
+
+                // Click on card itself
+                card.addEventListener('click', function(e) {
+                    if (e.target !== selectBtn && !selectBtn.contains(e.target)) {
+                        const suite = card.dataset.suite;
+                        const price = parseInt(card.dataset.price);
+                        const serviceType = card.dataset.service || '';
+                        openReservaModal(suite, price, serviceType);
+                    }
+                });
             });
 
             // Add event listeners to category tabs
