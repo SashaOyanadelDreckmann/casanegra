@@ -927,7 +927,10 @@
 
     <!-- Hero -->
     <section class="hero">
-        <img src="casa_negra_no_bg.png" alt="Casa Negra Premium" style="max-width: clamp(150px, 40vw, 275px); height: auto; margin-bottom: 0.3rem;">
+        <div style="position: relative; display: inline-block;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: clamp(180px, 45vw, 320px); height: clamp(180px, 45vw, 320px); background: #000000; border-radius: 4px; z-index: -1;"></div>
+            <img src="casa_negra_no_bg.png" alt="Casa Negra Premium" style="max-width: clamp(150px, 40vw, 275px); height: auto; margin-bottom: 0.3rem; position: relative; z-index: 1;">
+        </div>
         <div class="typewriter-container">
             <span class="typewriter" id="typewriter"></span>
         </div>
