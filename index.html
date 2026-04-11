@@ -1537,6 +1537,51 @@
                 .filter((service) => service.quantity > 0);
         }
 
+        function getWhatsAppReservationUrl() {
+            const ownerPhone = '56935208367';
+            const guestName = document.getElementById('modalNombre').value.trim();
+            const guestEmail = document.getElementById('modalEmail').value.trim();
+            const guestPhone = document.getElementById('modalTelefono').value.trim();
+            const suiteName = document.getElementById('modalSuiteName').value;
+            const checkIn = document.getElementById('modalFechaEntrada').value;
+            const checkOut = document.getElementById('modalFechaSalida').value;
+            const suitePrice = parseInt(document.getElementById('modalSuitePrice').value, 10) || 0;
+            const isService = document.getElementById('modalServiceType').value === 'service';
+            const selectedServices = getSelectedServices();
+            const entrada = new Date(`${checkIn}T00:00:00`);
+            const salida = new Date(`${checkOut}T00:00:00`);
+            const nights = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
+            const baseTotal = isService ? suitePrice : suitePrice * nights;
+            const servicesTotal = selectedServices.reduce((sum, service) => sum + (service.price * service.quantity), 0);
+            const total = baseTotal + servicesTotal;
+
+            const lines = [
+                'Hola Casa Negra, quiero solicitar una reserva:',
+                '',
+                `Nombre: ${guestName}`,
+                `Telefono: ${guestPhone}`,
+                `Email: ${guestEmail}`,
+                `Habitacion/Servicio: ${suiteName}`,
+                `Entrada: ${checkIn}`,
+                `Salida: ${checkOut}`,
+                `Noches: ${nights}`,
+                `Tarifa base: $${baseTotal.toLocaleString('es-CL')}`
+            ];
+
+            if (selectedServices.length > 0) {
+                lines.push('', 'Servicios adicionales:');
+                selectedServices.forEach((service) => {
+                    lines.push(`- ${service.name} x${service.quantity}: $${(service.price * service.quantity).toLocaleString('es-CL')}`);
+                });
+            } else {
+                lines.push('', 'Servicios adicionales: Ninguno');
+            }
+
+            lines.push('', `Total estimado: $${total.toLocaleString('es-CL')}`);
+
+            return `https://wa.me/${ownerPhone}?text=${encodeURIComponent(lines.join('\n'))}`;
+        }
+
         function setFormStatus(message = '') {
             const status = document.getElementById('formStatus');
             if (!status) {
@@ -1579,7 +1624,7 @@
             document.getElementById('modalReservaInfo').textContent = suiteName;
             document.getElementById('modalFechasInfo').textContent = 'Selecciona fechas para ver el total';
             document.getElementById('btnSubmitModal').disabled = false;
-            document.getElementById('btnSubmitModal').textContent = 'Confirmar Reserva';
+            document.getElementById('btnSubmitModal').textContent = 'Enviar por WhatsApp';
             clearFormErrors();
             calcularTotalModal();
 
@@ -1801,8 +1846,8 @@
                     <button type="button" id="btnCancelModal" class="btn-cancel" aria-label="Cancelar formulario de reserva">
                         Cancelar
                     </button>
-                    <button type="submit" id="btnSubmitModal" class="btn-submit" aria-label="Enviar formulario de reserva">
-                        Confirmar Reserva
+                    <button type="submit" id="btnSubmitModal" class="btn-submit" aria-label="Enviar solicitud por WhatsApp">
+                        Enviar por WhatsApp
                     </button>
                 </div>
             </form>
@@ -2195,63 +2240,28 @@
             return true;
         }
 
-        async function enviarReservaModal(event) {
+        function enviarReservaModal(event) {
             event.preventDefault();
 
             if (!validateReservaForm()) {
                 return;
             }
 
-            const selectedServices = getSelectedServices().map((service) => ({
-                name: service.name,
-                quantity: service.quantity
-            }));
-
-            const reservaData = {
-                name: document.getElementById('modalNombre').value.trim(),
-                email: document.getElementById('modalEmail').value.trim(),
-                phone: document.getElementById('modalTelefono').value.trim(),
-                suite: document.getElementById('modalSuiteName').value,
-                checkIn: document.getElementById('modalFechaEntrada').value,
-                checkOut: document.getElementById('modalFechaSalida').value,
-                selectedServices,
-                website: document.getElementById('website').value.trim()
-            };
-
             const enviarBtn = document.getElementById('btnSubmitModal');
             const originalText = enviarBtn.textContent;
             enviarBtn.disabled = true;
-            enviarBtn.textContent = 'Procesando...';
+            enviarBtn.textContent = 'Abriendo WhatsApp...';
             setFormStatus('');
 
             try {
-                const controller = new AbortController();
-                const timeoutId = window.setTimeout(() => controller.abort(), 20000);
-                const response = await fetch('/api/reservar', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(reservaData),
-                    signal: controller.signal
-                });
-                window.clearTimeout(timeoutId);
-
-                const result = await response.json();
-
-                if (!response.ok || !result.success) {
-                    throw new Error(result.error || 'No pudimos procesar la solicitud.');
-                }
-
-                setFormStatus('Solicitud enviada. Revisa tu correo para la confirmación.');
+                const whatsappUrl = getWhatsAppReservationUrl();
+                window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+                setFormStatus('Se abrió WhatsApp con tu solicitud lista para enviar.');
                 window.setTimeout(() => {
                     closeReservaModal();
                 }, 700);
             } catch (error) {
-                const message = error.name === 'AbortError'
-                    ? 'La reserva tardó demasiado en responder. Revisa Railway y la configuración del correo.'
-                    : (error.message || 'Error de conexión. Por favor intenta de nuevo.');
-                setFormStatus(message);
+                setFormStatus(error.message || 'No pudimos abrir WhatsApp. Intenta nuevamente.');
                 enviarBtn.disabled = false;
                 enviarBtn.textContent = originalText;
             }
