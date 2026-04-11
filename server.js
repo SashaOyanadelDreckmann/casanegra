@@ -22,11 +22,24 @@ if (!GMAIL_PASSWORD || GMAIL_PASSWORD.includes('tu_contraseña')) {
 }
 
 // Configurar Nodemailer
+console.log('Configurando Nodemailer con:');
+console.log('- GMAIL_USER:', GMAIL_USER);
+console.log('- GMAIL_PASSWORD length:', GMAIL_PASSWORD.length);
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: GMAIL_USER,
     pass: GMAIL_PASSWORD
+  }
+});
+
+// Verificar conexión
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('Error de configuración de Gmail:', error);
+  } else {
+    console.log('Gmail configurado correctamente');
   }
 });
 
