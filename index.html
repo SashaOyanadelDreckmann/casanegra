@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Casa Negra - Premium Guest Room en Ñuñoa, Santiago. Habitaciones exclusivas con servicios personalizados.">
-    <title>Casa Negra | Premium Boutique Hotel</title>
+    <meta name="theme-color" content="#0d0d0d">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Casa Negra | Premium Guest Room en Ñuñoa">
+    <meta property="og:description" content="Habitaciones exclusivas, jacuzzi privado y espacios de trabajo en Ñuñoa, Santiago.">
+    <meta property="og:url" content="https://casanegra-production.up.railway.app/">
+    <meta property="og:image" content="https://casanegra-production.up.railway.app/iloveimg-converted/IMG_8547.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Casa Negra | Premium Guest Room en Ñuñoa">
+    <meta name="twitter:description" content="Reserva habitaciones exclusivas y experiencias premium en Ñuñoa, Santiago.">
+    <meta name="twitter:image" content="https://casanegra-production.up.railway.app/iloveimg-converted/IMG_8547.jpg">
+    <link rel="canonical" href="https://casanegra-production.up.railway.app/">
+    <title>Casa Negra | Premium Guest Room en Ñuñoa</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -185,6 +197,18 @@
             animation: cursor-blink 0.7s infinite;
         }
 
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         @keyframes cursor-blink {
             0%, 49% { border-right-color: #FFD700; }
             50%, 100% { border-right-color: transparent; }
@@ -237,11 +261,20 @@
             box-shadow: 0 25px 60px rgba(245, 241, 237, 0.12);
         }
 
+        .suite-card:focus-visible,
+        .nav-link:focus-visible,
+        .cta-button:focus-visible,
+        .categoria-tab:focus-visible {
+            outline: 2px solid #FFD700;
+            outline-offset: 4px;
+        }
+
         .suite-image {
             width: 100%;
             height: 300px;
             object-fit: cover;
             display: block;
+            aspect-ratio: 4 / 3;
         }
 
         .suite-content {
@@ -903,6 +936,20 @@
                 grid-row: span 1;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -911,11 +958,11 @@
         <div class="header-content">
             <img src="casa_negra_no_bg.png" alt="Casa Negra" style="height: 45px; width: auto;">
 
-            <nav>
+            <nav aria-label="Navegación principal">
                 <a href="#suites" class="nav-link">Habitaciones</a>
                 <a href="#espacios" class="nav-link">Espacios</a>
                 <a href="#reserva" class="nav-link">Reservar</a>
-                <a href="#contacto" class="nav-link" title="Contacto">
+                <a href="#contacto" class="nav-link" title="Contacto" aria-label="Ir a contacto">
                     <svg width="18" height="14" viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2" y="2" width="20" height="14" rx="2"/>
                         <path d="M2 4l10 7 10-7"/>
@@ -926,13 +973,14 @@
     </header>
 
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero" aria-labelledby="hero-title">
         <div style="position: relative; display: inline-block;">
             <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: clamp(180px, 45vw, 320px); height: clamp(180px, 45vw, 320px); background: #000000; border-radius: 4px; z-index: -1;"></div>
-            <img src="casa_negra_no_bg.png" alt="Casa Negra Premium" style="max-width: clamp(150px, 40vw, 275px); height: auto; margin-bottom: 0.3rem; position: relative; z-index: 1;">
+            <img src="casa_negra_no_bg.png" alt="Casa Negra Premium" width="275" height="275" fetchpriority="high" decoding="async" style="max-width: clamp(150px, 40vw, 275px); height: auto; margin-bottom: 0.3rem; position: relative; z-index: 1;">
         </div>
+        <h1 id="hero-title" class="sr-only">Casa Negra Premium Guest Room en Ñuñoa</h1>
         <div class="typewriter-container">
-            <span class="typewriter" id="typewriter"></span>
+            <span class="typewriter" id="typewriter" aria-live="polite"></span>
         </div>
         <p>Premium Guest Room en Ñuñoa. Habitaciones exclusivas con servicios personalizados y experiencias de lujo.</p>
         <a href="#suites" class="cta-button">Explorar Habitaciones</a>
@@ -949,8 +997,8 @@
 
         <div class="suites-grid">
             <!-- Montenegro -->
-            <div class="suite-card" data-suite="Habitación Montenegro" data-price="65000">
-                <img src="iloveimg-converted/IMG_8614.jpg" alt="Habitación Montenegro" class="suite-image" id="img-montenegro">
+            <div class="suite-card" data-suite="Habitación Montenegro" data-price="65000" role="button" tabindex="0" aria-label="Reservar Habitación Montenegro desde 65000 pesos por noche">
+                <img src="iloveimg-converted/IMG_8614.jpg" alt="Habitación Montenegro" class="suite-image" id="img-montenegro" loading="eager" decoding="async">
                 <div class="suite-content">
                     <div class="suite-tag">Matrimonial</div>
                     <div class="suite-title">Montenegro</div>
@@ -967,8 +1015,8 @@
             </div>
 
             <!-- Bohemia -->
-            <div class="suite-card" data-suite="Habitación Bohemia" data-price="32000">
-                <img src="iloveimg-converted/IMG_8726.jpg" alt="Habitación Bohemia" class="suite-image" id="img-bohemia">
+            <div class="suite-card" data-suite="Habitación Bohemia" data-price="32000" role="button" tabindex="0" aria-label="Reservar Habitación Bohemia desde 32000 pesos por noche">
+                <img src="iloveimg-converted/IMG_8726.jpg" alt="Habitación Bohemia" class="suite-image" id="img-bohemia" loading="lazy" decoding="async">
                 <div class="suite-content">
                     <div class="suite-tag">Individual</div>
                     <div class="suite-title">Bohemia</div>
@@ -985,8 +1033,8 @@
             </div>
 
             <!-- Lastarría -->
-            <div class="suite-card" data-suite="Habitación Lastarría" data-price="44000">
-                <img src="iloveimg-converted/IMG_8689.jpg" alt="Habitación Lastarría" class="suite-image" id="img-lastarria">
+            <div class="suite-card" data-suite="Habitación Lastarría" data-price="44000" role="button" tabindex="0" aria-label="Reservar Habitación Lastarría desde 44000 pesos por noche">
+                <img src="iloveimg-converted/IMG_8689.jpg" alt="Habitación Lastarría" class="suite-image" id="img-lastarria" loading="lazy" decoding="async">
                 <div class="suite-content">
                     <div class="suite-tag">Individual + Escritorio</div>
                     <div class="suite-title">Lastarría</div>
@@ -1012,8 +1060,8 @@
 
         <div class="suites-grid">
             <!-- Jacuzzi Tropical -->
-            <div class="suite-card" data-suite="Jacuzzi Tropical" data-price="25000" data-service="service" style="border: 2px solid #FFD700;">
-                <img src="iloveimg-converted/IMG_8547.jpg" alt="Jacuzzi Tropical" class="suite-image">
+            <div class="suite-card" data-suite="Jacuzzi Tropical" data-price="25000" data-service="service" role="button" tabindex="0" aria-label="Reservar Jacuzzi Tropical desde 25000 pesos" style="border: 2px solid #FFD700;">
+                <img src="iloveimg-converted/IMG_8547.jpg" alt="Jacuzzi Tropical" class="suite-image" loading="lazy" decoding="async">
                 <div class="suite-content">
                     <div class="suite-tag" style="background: #FFD700; color: #000;">EXPERIENCIA</div>
                     <div class="suite-title">Jacuzzi Tropical</div>
@@ -1035,13 +1083,13 @@
     <section id="espacios">
         <h2>Recorre los Espacios</h2>
 
-        <div style="display: flex; gap: 1.5rem; margin-bottom: 4rem; border-bottom: 1px solid rgba(245, 241, 237, 0.2); padding-bottom: 2rem; flex-wrap: nowrap; overflow-x: auto;" id="categoriaTabs">
-            <button class="categoria-tab active" data-categoria="jacuzzi" aria-selected="true">Jacuzzi & Terraza</button>
-            <button class="categoria-tab" data-categoria="montenegro" aria-selected="false">Suite Montenegro</button>
-            <button class="categoria-tab" data-categoria="bohemia" aria-selected="false">Suite Bohemia</button>
-            <button class="categoria-tab" data-categoria="lastarria" aria-selected="false">Suite Lastarría</button>
-            <button class="categoria-tab" data-categoria="sala" aria-selected="false">Sala de Estar</button>
-            <button class="categoria-tab" data-categoria="workspace" aria-selected="false">Espacios de Trabajo</button>
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 4rem; border-bottom: 1px solid rgba(245, 241, 237, 0.2); padding-bottom: 2rem; flex-wrap: nowrap; overflow-x: auto;" id="categoriaTabs" role="tablist" aria-label="Galería de espacios">
+            <button class="categoria-tab active" data-categoria="jacuzzi" aria-selected="true" aria-controls="cat-jacuzzi" id="tab-jacuzzi" role="tab">Jacuzzi & Terraza</button>
+            <button class="categoria-tab" data-categoria="montenegro" aria-selected="false" aria-controls="cat-montenegro" id="tab-montenegro" role="tab" tabindex="-1">Suite Montenegro</button>
+            <button class="categoria-tab" data-categoria="bohemia" aria-selected="false" aria-controls="cat-bohemia" id="tab-bohemia" role="tab" tabindex="-1">Suite Bohemia</button>
+            <button class="categoria-tab" data-categoria="lastarria" aria-selected="false" aria-controls="cat-lastarria" id="tab-lastarria" role="tab" tabindex="-1">Suite Lastarría</button>
+            <button class="categoria-tab" data-categoria="sala" aria-selected="false" aria-controls="cat-sala" id="tab-sala" role="tab" tabindex="-1">Sala de Estar</button>
+            <button class="categoria-tab" data-categoria="workspace" aria-selected="false" aria-controls="cat-workspace" id="tab-workspace" role="tab" tabindex="-1">Espacios de Trabajo</button>
         </div>
 
         <style>
@@ -1182,75 +1230,75 @@
         </style>
 
         <!-- Jacuzzi & Terraza -->
-        <div class="categoria-contenedor active" id="cat-jacuzzi">
+        <div class="categoria-contenedor active" id="cat-jacuzzi" role="tabpanel" aria-labelledby="tab-jacuzzi">
             <div class="collage-gallery">
-                <img src="iloveimg-converted/IMG_8547.jpg" alt="Jacuzzi">
-                <img src="iloveimg-converted/IMG_8481.jpg" alt="Jacuzzi">
-                <img src="iloveimg-converted/IMG_8544.jpg" alt="Jacuzzi">
-                <img src="iloveimg-converted/IMG_8549.jpg" alt="Jacuzzi">
-                <img src="iloveimg-converted/IMG_8550.jpg" alt="Jacuzzi">
-                <img src="iloveimg-converted/IMG_8714.jpg" alt="Jacuzzi">
-                <img src="iloveimg-converted/IMG_8820.jpg" alt="Jacuzzi">
-                <img src="iloveimg-converted/IMG_8827.jpg" alt="Jacuzzi">
-                <img src="iloveimg-converted/IMG_8765.jpg" alt="Terraza">
-                <img src="iloveimg-converted/IMG_8768.jpg" alt="Terraza">
-                <img src="iloveimg-converted/IMG_8787.jpg" alt="Terraza">
+                <img src="iloveimg-converted/IMG_8547.jpg" alt="Jacuzzi" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8481.jpg" alt="Jacuzzi" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8544.jpg" alt="Jacuzzi" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8549.jpg" alt="Jacuzzi" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8550.jpg" alt="Jacuzzi" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8714.jpg" alt="Jacuzzi" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8820.jpg" alt="Jacuzzi" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8827.jpg" alt="Jacuzzi" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8765.jpg" alt="Terraza" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8768.jpg" alt="Terraza" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8787.jpg" alt="Terraza" loading="lazy" decoding="async">
             </div>
         </div>
 
         <!-- Montenegro -->
-        <div class="categoria-contenedor" id="cat-montenegro">
+        <div class="categoria-contenedor" id="cat-montenegro" role="tabpanel" aria-labelledby="tab-montenegro" hidden>
             <div class="collage-gallery">
-                <img src="iloveimg-converted/IMG_8603.jpg" alt="Montenegro">
-                <img src="iloveimg-converted/IMG_8609.jpg" alt="Montenegro">
-                <img src="iloveimg-converted/IMG_8614.jpg" alt="Montenegro">
-                <img src="iloveimg-converted/IMG_8625.jpg" alt="Montenegro">
-                <img src="iloveimg-converted/IMG_8649.jpg" alt="Montenegro">
-                <img src="iloveimg-converted/IMG_8653.jpg" alt="Montenegro">
-                <img src="iloveimg-converted/IMG_8669.jpg" alt="Montenegro">
-                <img src="iloveimg-converted/IMG_8684.jpg" alt="Montenegro">
+                <img src="iloveimg-converted/IMG_8603.jpg" alt="Montenegro" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8609.jpg" alt="Montenegro" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8614.jpg" alt="Montenegro" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8625.jpg" alt="Montenegro" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8649.jpg" alt="Montenegro" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8653.jpg" alt="Montenegro" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8669.jpg" alt="Montenegro" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8684.jpg" alt="Montenegro" loading="lazy" decoding="async">
             </div>
         </div>
 
         <!-- Bohemia -->
-        <div class="categoria-contenedor" id="cat-bohemia">
+        <div class="categoria-contenedor" id="cat-bohemia" role="tabpanel" aria-labelledby="tab-bohemia" hidden>
             <div class="collage-gallery">
-                <img src="iloveimg-converted/IMG_8686.jpg" alt="Bohemia">
-                <img src="iloveimg-converted/IMG_8726.jpg" alt="Bohemia">
-                <img src="iloveimg-converted/IMG_8727.jpg" alt="Bohemia">
-                <img src="iloveimg-converted/IMG_8728.jpg" alt="Bohemia">
+                <img src="iloveimg-converted/IMG_8686.jpg" alt="Bohemia" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8726.jpg" alt="Bohemia" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8727.jpg" alt="Bohemia" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8728.jpg" alt="Bohemia" loading="lazy" decoding="async">
             </div>
         </div>
 
         <!-- Lastarría -->
-        <div class="categoria-contenedor" id="cat-lastarria">
+        <div class="categoria-contenedor" id="cat-lastarria" role="tabpanel" aria-labelledby="tab-lastarria" hidden>
             <div class="collage-gallery">
-                <img src="iloveimg-converted/IMG_8585.jpg" alt="Lastarría">
-                <img src="iloveimg-converted/IMG_8590.jpg" alt="Lastarría">
-                <img src="iloveimg-converted/IMG_8602.jpg" alt="Lastarría">
-                <img src="iloveimg-converted/IMG_8686.jpg" alt="Lastarría">
-                <img src="iloveimg-converted/IMG_8687.jpg" alt="Lastarría">
-                <img src="iloveimg-converted/IMG_8689.jpg" alt="Lastarría">
+                <img src="iloveimg-converted/IMG_8585.jpg" alt="Lastarría" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8590.jpg" alt="Lastarría" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8602.jpg" alt="Lastarría" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8686.jpg" alt="Lastarría" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8687.jpg" alt="Lastarría" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8689.jpg" alt="Lastarría" loading="lazy" decoding="async">
             </div>
         </div>
 
         <!-- Sala de Estar -->
-        <div class="categoria-contenedor" id="cat-sala">
+        <div class="categoria-contenedor" id="cat-sala" role="tabpanel" aria-labelledby="tab-sala" hidden>
             <div class="collage-gallery">
-                <img src="iloveimg-converted/IMG_8702.jpg" alt="Sala">
-                <img src="iloveimg-converted/IMG_8813.jpg" alt="Sala">
-                <img src="iloveimg-converted/IMG_8815.jpg" alt="Sala">
-                <img src="iloveimg-converted/IMG_8817.jpg" alt="Sala">
+                <img src="iloveimg-converted/IMG_8702.jpg" alt="Sala" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8813.jpg" alt="Sala" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8815.jpg" alt="Sala" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8817.jpg" alt="Sala" loading="lazy" decoding="async">
             </div>
         </div>
 
         <!-- Workspace -->
-        <div class="categoria-contenedor" id="cat-workspace">
+        <div class="categoria-contenedor" id="cat-workspace" role="tabpanel" aria-labelledby="tab-workspace" hidden>
             <div class="collage-gallery">
-                <img src="iloveimg-converted/IMG_8520.jpg" alt="Workspace">
-                <img src="iloveimg-converted/IMG_8699.jpg" alt="Workspace">
-                <img src="iloveimg-converted/IMG_8712.jpg" alt="Workspace">
-                <img src="iloveimg-converted/IMG_8815.jpg" alt="Workspace">
+                <img src="iloveimg-converted/IMG_8520.jpg" alt="Workspace" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8699.jpg" alt="Workspace" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8712.jpg" alt="Workspace" loading="lazy" decoding="async">
+                <img src="iloveimg-converted/IMG_8815.jpg" alt="Workspace" loading="lazy" decoding="async">
             </div>
         </div>
     </section>
@@ -1335,7 +1383,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-top: 3rem;">
             <div>
                 <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--gris); margin-bottom: 1rem; font-weight: 600;">Email</div>
-                <a href="mailto:casanegra.contacto@gmail.com" style="font-size: 1.1rem; color: var(--negro); text-decoration: none; border-bottom: 1px solid var(--negro);">casanegra.contacto@gmail.com</a>
+                <a href="mailto:casanegra.contacto.cl@gmail.com" style="font-size: 1.1rem; color: var(--negro); text-decoration: none; border-bottom: 1px solid var(--negro);">casanegra.contacto.cl@gmail.com</a>
             </div>
 
             <div>
@@ -1350,7 +1398,7 @@
 
             <div>
                 <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--gris); margin-bottom: 1rem; font-weight: 600;">Instagram</div>
-                <a href="https://instagram.com/casanegra.cl" target="_blank" style="font-size: 1.1rem; color: var(--negro); text-decoration: none; border-bottom: 1px solid var(--negro);">@casanegra.cl</a>
+                <a href="https://instagram.com/casanegra.cl" target="_blank" rel="noopener noreferrer" style="font-size: 1.1rem; color: var(--negro); text-decoration: none; border-bottom: 1px solid var(--negro);">@casanegra.cl</a>
             </div>
         </div>
     </section>
@@ -1360,7 +1408,7 @@
         <p style="color: #f5f1ed;">Casa Negra - Premium Guest Room en Ñuñoa</p>
         <p style="margin-top: 1rem; font-size: 0.9rem; color: #f5f1ed;">
             Instagram:
-            <a href="https://instagram.com/casanegra.cl" target="_blank" style="color: #FFD700; text-decoration: none; font-weight: 600;">@casanegra.cl</a>
+            <a href="https://instagram.com/casanegra.cl" target="_blank" rel="noopener noreferrer" style="color: #FFD700; text-decoration: none; font-weight: 600;">@casanegra.cl</a>
         </p>
         <p style="margin-top: 1rem; font-size: 0.8rem; color: #b8b0a8;">Política de Cancelación: Reembolso total si se cancela con 5 días de anticipación.</p>
     </footer>
@@ -1422,9 +1470,6 @@
             img.style.transition = 'opacity 0.3s ease';
         });
 
-        let selectedServices = [];
-
-
         // Efecto máquina de escribir
         const phrases = [
             "Donde cada momento se convierte en recuerdo",
@@ -1472,123 +1517,145 @@
             typeWriter();
         }
 
-        // MODAL DE RESERVA PROFESIONAL
-        function openReservaModal(suiteName, suitePrice, serviceType = 'suite') {
-            const modal = document.getElementById('reservaModal');
+        let lastTriggerButton = null;
+
+        function getModal() {
+            return document.getElementById('reservaModal');
+        }
+
+        function getModalContent() {
+            return getModal()?.querySelector('.reserva-modal-content');
+        }
+
+        function getSelectedServices() {
+            return Array.from(document.querySelectorAll('.servicio-cantidad'))
+                .map((input) => ({
+                    name: input.dataset.nombre,
+                    price: parseInt(input.dataset.precio, 10),
+                    quantity: parseInt(input.value, 10) || 0
+                }))
+                .filter((service) => service.quantity > 0);
+        }
+
+        function setFormStatus(message = '') {
+            const status = document.getElementById('formStatus');
+            if (!status) {
+                return;
+            }
+
+            status.textContent = message;
+            status.classList.toggle('show', Boolean(message));
+        }
+
+        function clearFormErrors() {
+            document.getElementById('emailError').classList.remove('show');
+            document.getElementById('dateError').classList.remove('show');
+            setFormStatus('');
+        }
+
+        function openReservaModal(suiteName, suitePrice, serviceType = 'suite', trigger = null) {
+            const modal = getModal();
+            const modalContent = getModalContent();
             const isService = serviceType === 'service';
+            lastTriggerButton = trigger;
 
             document.getElementById('modalSuiteName').value = suiteName;
             document.getElementById('modalSuitePrice').value = suitePrice;
             document.getElementById('modalServiceType').value = serviceType;
+            document.getElementById('website').value = '';
 
-            // Mostrar/ocultar servicios según el tipo
             const serviciosContainer = document.getElementById('serviciosContainer');
-            if (isService) {
-                serviciosContainer.style.display = 'none';
-            } else {
-                serviciosContainer.style.display = 'block';
-            }
+            serviciosContainer.style.display = isService ? 'none' : 'block';
 
-            // Limpiar cantidades de servicios
-            document.querySelectorAll('.servicio-cantidad').forEach(input => input.value = '0');
+            document.querySelectorAll('.servicio-cantidad').forEach((input) => {
+                input.value = '0';
+                input.max = '0';
+            });
 
-            // Actualizar información de la reserva
+            document.getElementById('reservaModalForm').reset();
+            document.getElementById('modalSuiteName').value = suiteName;
+            document.getElementById('modalSuitePrice').value = suitePrice;
+            document.getElementById('modalServiceType').value = serviceType;
             document.getElementById('modalReservaInfo').textContent = suiteName;
             document.getElementById('modalFechasInfo').textContent = 'Selecciona fechas para ver el total';
-
-            // Limpiar formulario
-            document.getElementById('modalNombre').value = '';
-            document.getElementById('modalEmail').value = '';
-            document.getElementById('modalTelefono').value = '';
-            document.getElementById('modalFechaEntrada').value = '';
-            document.getElementById('modalFechaSalida').value = '';
-
+            document.getElementById('btnSubmitModal').disabled = false;
+            document.getElementById('btnSubmitModal').textContent = 'Confirmar Reserva';
+            clearFormErrors();
             calcularTotalModal();
+
             modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
+            window.setTimeout(() => modalContent?.focus(), 0);
         }
 
         function closeReservaModal() {
-            const modal = document.getElementById('reservaModal');
+            const modal = getModal();
             modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = 'auto';
+            clearFormErrors();
+            if (lastTriggerButton) {
+                lastTriggerButton.focus();
+            }
         }
 
         function calcularTotalModal() {
             const fechaEntrada = document.getElementById('modalFechaEntrada').value;
             const fechaSalida = document.getElementById('modalFechaSalida').value;
-            const suitePrice = parseInt(document.getElementById('modalSuitePrice').value);
+            const suitePrice = parseInt(document.getElementById('modalSuitePrice').value, 10) || 0;
             const isService = document.getElementById('modalServiceType').value === 'service';
 
             let tarifaBase = 0;
             let noches = 0;
-            let serviciosTotal = 0;
-            let serviciosDetalles = [];
 
             if (fechaEntrada && fechaSalida) {
-                const entrada = new Date(fechaEntrada);
-                const salida = new Date(fechaSalida);
+                const entrada = new Date(`${fechaEntrada}T00:00:00`);
+                const salida = new Date(`${fechaSalida}T00:00:00`);
                 noches = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
 
-                if (isService) {
-                    tarifaBase = suitePrice;
-                } else {
-                    tarifaBase = suitePrice * noches;
+                if (noches > 0) {
+                    tarifaBase = isService ? suitePrice : suitePrice * noches;
+                    document.querySelectorAll('.servicio-cantidad').forEach((input) => {
+                        input.max = String(noches);
+                        if ((parseInt(input.value, 10) || 0) > noches) {
+                            input.value = String(noches);
+                        }
+                    });
                 }
-
-                // Actualizar máximo de noches para los inputs de servicios
-                document.querySelectorAll('.servicio-cantidad').forEach(input => {
-                    input.max = noches;
-                });
             }
 
-            // Calcular servicios adicionales - ahora con cantidades
-            document.querySelectorAll('.servicio-cantidad').forEach(input => {
-                const cantidad = parseInt(input.value) || 0;
-                if (cantidad > 0) {
-                    const precio = parseInt(input.dataset.precio);
-                    const servicioTotal = precio * cantidad;
-                    serviciosTotal += servicioTotal;
-                    const nombre = input.dataset.nombre;
-                    serviciosDetalles.push(nombre + ' (x' + cantidad + '): $' + servicioTotal.toLocaleString());
-                }
-            });
-
+            const selectedServices = getSelectedServices();
+            const serviciosTotal = selectedServices.reduce((sum, service) => sum + (service.price * service.quantity), 0);
             const total = tarifaBase + serviciosTotal;
 
-            // Actualizar UI
-            document.getElementById('modalTarifaBase').textContent = tarifaBase.toLocaleString();
-            document.getElementById('modalTotal').textContent = total.toLocaleString();
+            document.getElementById('modalTarifaBase').textContent = tarifaBase.toLocaleString('es-CL');
+            document.getElementById('modalTotal').textContent = total.toLocaleString('es-CL');
 
-            // Mostrar detalles de servicios si hay
             const serviciosResumen = document.getElementById('serviciosResumen');
-            if (serviciosDetalles.length > 0) {
+            if (selectedServices.length > 0) {
                 serviciosResumen.style.display = 'block';
-                document.getElementById('serviciosDetalles').innerHTML = serviciosDetalles.map(s => '<div>' + s + '</div>').join('');
+                document.getElementById('serviciosDetalles').innerHTML = selectedServices
+                    .map((service) => `<div>${service.name} (x${service.quantity}): $${(service.price * service.quantity).toLocaleString('es-CL')}</div>`)
+                    .join('');
             } else {
                 serviciosResumen.style.display = 'none';
+                document.getElementById('serviciosDetalles').textContent = '';
             }
 
-            // Actualizar fechas info
             if (fechaEntrada && fechaSalida && noches > 0) {
-                document.getElementById('modalFechasInfo').textContent = fechaEntrada + ' a ' + fechaSalida + ' (' + noches + ' noche' + (noches > 1 ? 's' : '') + ')';
+                document.getElementById('modalFechasInfo').textContent = `${fechaEntrada} a ${fechaSalida} (${noches} noche${noches > 1 ? 's' : ''})`;
             }
         }
-
-        document.getElementById('reservaModal')?.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeReservaModal();
-            }
-        });
     </script>
 
     <!-- MODAL DE RESERVA PROFESIONAL -->
-    <div id="reservaModal" class="reserva-modal">
-        <div class="reserva-modal-content">
-            <button type="button" class="reserva-modal-close" id="btnCloseModal" aria-label="Cerrar modal de reserva">+</button>
+    <div id="reservaModal" class="reserva-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription" aria-hidden="true">
+        <div class="reserva-modal-content" tabindex="-1">
+            <button type="button" class="reserva-modal-close" id="btnCloseModal" aria-label="Cerrar modal de reserva">&times;</button>
 
-            <h2 style="margin-bottom: 0.5rem; color: var(--negro);">Completar Reserva</h2>
-            <p style="color: var(--gris); margin-bottom: 1.5rem; font-size: 0.9rem;">Proporciona tus datos y revisa el total antes de confirmar</p>
+            <h2 id="modalTitle" style="margin-bottom: 0.5rem; color: var(--negro);">Completar Reserva</h2>
+            <p id="modalDescription" style="color: var(--gris); margin-bottom: 1.5rem; font-size: 0.9rem;">Proporciona tus datos y revisa el total antes de confirmar</p>
 
             <form id="reservaModalForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
                 <!-- Información de la reserva -->
@@ -1601,8 +1668,10 @@
                 <input type="hidden" id="modalSuitePrice" value="">
                 <input type="hidden" id="modalServiceType" value="">
 
-                <!-- CSRF Token -->
-                <input type="hidden" id="csrfToken" value="">
+                <div class="sr-only" aria-hidden="true">
+                    <label for="website">No completar este campo</label>
+                    <input type="text" id="website" name="website" autocomplete="off" tabindex="-1">
+                </div>
 
                 <!-- Datos personales -->
                 <div class="form-group">
@@ -1613,7 +1682,7 @@
                 <div class="form-group">
                     <label for="modalEmail" class="form-label">Email</label>
                     <input type="email" id="modalEmail" class="form-field" placeholder="tu@email.com" required aria-required="true" aria-label="Email requerido">
-                    <span class="form-error" id="emailError"></span>
+                    <span class="form-error" id="emailError" aria-live="polite"></span>
                 </div>
 
                 <div class="form-group">
@@ -1632,14 +1701,14 @@
                         <div class="form-group">
                             <label for="modalFechaSalida" class="form-label form-label-small">Salida</label>
                             <input type="date" id="modalFechaSalida" class="form-field" required aria-required="true" aria-label="Fecha de salida requerida">
-                            <span class="form-error" id="dateError"></span>
+                            <span class="form-error" id="dateError" aria-live="polite"></span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Servicios adicionales (solo para suites) -->
                 <div id="serviciosContainer" style="display: none;">
-                    <label for="serviciosSelect" class="form-label">Servicios Adicionales</label>
+                    <div class="form-label">Servicios Adicionales</div>
                     <p style="color: var(--gris); font-size: 0.85rem; margin-bottom: 1.5rem; padding: 0.8rem; background: rgba(255, 215, 0, 0.08); border-radius: 4px; border-left: 2px solid #FFD700;">Selecciona la cantidad de veces que deseas cada servicio. Puedes distribuir estos servicios en los diferentes días de tu hospedaje según lo prefieras. Por ejemplo, si tienes 3 noches, puedes contratar desayuno para 2 días o limpiezas en diferentes fechas.</p>
                     <div class="servicios-list">
                         <div class="servicio-item">
@@ -1724,6 +1793,8 @@
                         <span class="resumen-valor">$<span id="modalTotal">0</span></span>
                     </div>
                 </div>
+
+                <div id="formStatus" class="form-error" aria-live="polite"></div>
 
                 <!-- Botones -->
                 <div class="form-buttons-grid">
@@ -2065,22 +2136,12 @@
     </style>
 
     <script>
-        // Email validation regex
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        // Initialize CSRF token
-        function initializeCSRFToken() {
-            const token = 'csrf_' + Math.random().toString(36).substr(2, 9);
-            document.getElementById('csrfToken').value = token;
-            sessionStorage.setItem('csrfToken', token);
-        }
-
-        // Validate email with regex
         function validateEmail(email) {
             return emailRegex.test(email);
         }
 
-        // Validate form fields
         function validateReservaForm() {
             const nombre = document.getElementById('modalNombre').value.trim();
             const email = document.getElementById('modalEmail').value.trim();
@@ -2090,53 +2151,43 @@
             const emailError = document.getElementById('emailError');
             const dateError = document.getElementById('dateError');
 
-            let isValid = true;
+            clearFormErrors();
 
-            // Clear previous errors
-            emailError.classList.remove('show');
-            dateError.classList.remove('show');
-
-            // Validate nombre
             if (!nombre) {
-                showError('Por favor ingresa tu nombre completo');
+                setFormStatus('Por favor ingresa tu nombre completo.');
                 return false;
             }
 
-            // Validate email with regex
             if (!email || !validateEmail(email)) {
-                emailError.textContent = 'Por favor ingresa un email válido';
+                emailError.textContent = 'Por favor ingresa un email válido.';
                 emailError.classList.add('show');
                 return false;
             }
 
-            // Validate telefono
             if (!telefono) {
-                showError('Por favor ingresa tu teléfono');
+                setFormStatus('Por favor ingresa tu teléfono.');
                 return false;
             }
 
-            // Validate dates
             if (!fechaEntrada || !fechaSalida) {
-                dateError.textContent = 'Por favor selecciona las fechas de entrada y salida';
+                dateError.textContent = 'Por favor selecciona las fechas de entrada y salida.';
                 dateError.classList.add('show');
                 return false;
             }
 
-            const entrada = new Date(fechaEntrada);
-            const salida = new Date(fechaSalida);
+            const entrada = new Date(`${fechaEntrada}T00:00:00`);
+            const salida = new Date(`${fechaSalida}T00:00:00`);
             const hoy = new Date();
             hoy.setHours(0, 0, 0, 0);
 
-            // Check if dates are valid (entry date should be today or later)
             if (entrada < hoy) {
-                dateError.textContent = 'La fecha de entrada no puede ser en el pasado';
+                dateError.textContent = 'La fecha de entrada no puede ser en el pasado.';
                 dateError.classList.add('show');
                 return false;
             }
 
-            // Check if exit date is after entry date
             if (entrada >= salida) {
-                dateError.textContent = 'La fecha de salida debe ser posterior a la fecha de entrada';
+                dateError.textContent = 'La fecha de salida debe ser posterior a la fecha de entrada.';
                 dateError.classList.add('show');
                 return false;
             }
@@ -2144,107 +2195,112 @@
             return true;
         }
 
-        function showError(message) {
-            alert(message);
-        }
-
-        function enviarReservaModal(event) {
+        async function enviarReservaModal(event) {
             event.preventDefault();
 
             if (!validateReservaForm()) {
                 return;
             }
 
-            const nombre = document.getElementById('modalNombre').value.trim();
-            const email = document.getElementById('modalEmail').value.trim();
-            const telefono = document.getElementById('modalTelefono').value.trim();
-            const suite = document.getElementById('modalSuiteName').value;
-            const fechaEntrada = document.getElementById('modalFechaEntrada').value;
-            const fechaSalida = document.getElementById('modalFechaSalida').value;
-            const suitePrice = parseInt(document.getElementById('modalSuitePrice').value);
-            const serviceType = document.getElementById('modalServiceType').value;
-            const csrfToken = document.getElementById('csrfToken').value;
+            const selectedServices = getSelectedServices().map((service) => ({
+                name: service.name,
+                quantity: service.quantity
+            }));
 
-            const entrada = new Date(fechaEntrada);
-            const salida = new Date(fechaSalida);
-            const nights = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
-
-            // Calculate services
-            let servicios = [];
-            let serviciosTotal = 0;
-            document.querySelectorAll('.servicio-cantidad').forEach(input => {
-                const cantidad = parseInt(input.value) || 0;
-                if (cantidad > 0) {
-                    const servicioNombre = input.dataset.nombre;
-                    const precio = parseInt(input.dataset.precio);
-                    servicios.push(servicioNombre + ' (x' + cantidad + ')');
-                    serviciosTotal += precio * cantidad;
-                }
-            });
-
-            const serviciosStr = servicios.length > 0 ? servicios.join(', ') : 'Ninguno';
-            let total = serviceType === 'service'
-                ? suitePrice + serviciosTotal
-                : (suitePrice * nights) + serviciosTotal;
-
-            // Prepare reservation data
             const reservaData = {
-                name: nombre,
-                email: email,
-                phone: telefono,
-                suite: suite,
-                checkIn: fechaEntrada,
-                checkOut: fechaSalida,
-                nights: nights,
-                guests: '1',
-                services: serviciosStr,
-                total: total,
-                csrfToken: csrfToken
+                name: document.getElementById('modalNombre').value.trim(),
+                email: document.getElementById('modalEmail').value.trim(),
+                phone: document.getElementById('modalTelefono').value.trim(),
+                suite: document.getElementById('modalSuiteName').value,
+                checkIn: document.getElementById('modalFechaEntrada').value,
+                checkOut: document.getElementById('modalFechaSalida').value,
+                selectedServices,
+                website: document.getElementById('website').value.trim()
             };
 
             const enviarBtn = document.getElementById('btnSubmitModal');
             const originalText = enviarBtn.textContent;
             enviarBtn.disabled = true;
             enviarBtn.textContent = 'Procesando...';
+            setFormStatus('');
 
-            fetch('/api/reservar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': csrfToken
-                },
-                body: JSON.stringify(reservaData)
-            })
-            .then(res => res.json())
-            .then(result => {
-                if (result.success) {
-                    alert('Reserva confirmada\n\nHemos enviado un email de confirmación a ' + email);
-                    closeReservaModal();
-                } else {
-                    showError('Error al procesar la reserva: ' + (result.error || 'Error desconocido'));
-                    enviarBtn.disabled = false;
-                    enviarBtn.textContent = originalText;
+            try {
+                const response = await fetch('/api/reservar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(reservaData)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.error || 'No pudimos procesar la solicitud.');
                 }
-            })
-            .catch(err => {
-                showError('Error de conexión. Por favor intenta de nuevo.');
+
+                setFormStatus('Solicitud enviada. Revisa tu correo para la confirmación.');
+                window.setTimeout(() => {
+                    closeReservaModal();
+                }, 700);
+            } catch (error) {
+                setFormStatus(error.message || 'Error de conexión. Por favor intenta de nuevo.');
                 enviarBtn.disabled = false;
                 enviarBtn.textContent = originalText;
-                console.error('Error:', err);
-            });
+            }
         }
 
-        // Setup event listeners when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeCSRFToken();
+        function activateCategory(tab) {
+            const categoria = tab.dataset.categoria;
 
+            document.querySelectorAll('.categoria-tab').forEach((item) => {
+                item.classList.remove('active');
+                item.setAttribute('aria-selected', 'false');
+                item.setAttribute('tabindex', '-1');
+            });
+
+            document.querySelectorAll('.categoria-contenedor').forEach((panel) => {
+                panel.classList.remove('active');
+                panel.hidden = true;
+            });
+
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            tab.setAttribute('tabindex', '0');
+            cambiarCategoria(categoria, tab);
+
+            const panel = document.getElementById(`cat-${categoria}`);
+            if (panel) {
+                panel.hidden = false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = getModal();
             const btnSubmit = document.getElementById('btnSubmitModal');
             const btnCancel = document.getElementById('btnCancelModal');
             const btnClose = document.getElementById('btnCloseModal');
             const modalForm = document.getElementById('reservaModalForm');
+            const fechaEntrada = document.getElementById('modalFechaEntrada');
+            const fechaSalida = document.getElementById('modalFechaSalida');
+            const emailField = document.getElementById('modalEmail');
 
-            if (btnSubmit && modalForm) {
-                btnSubmit.addEventListener('click', enviarReservaModal);
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeReservaModal();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal?.getAttribute('aria-hidden') === 'false') {
+                    closeReservaModal();
+                }
+            });
+
+            if (modalForm) {
+                modalForm.addEventListener('submit', enviarReservaModal);
             }
 
             if (btnCancel) {
@@ -2255,21 +2311,24 @@
                 btnClose.addEventListener('click', closeReservaModal);
             }
 
-            // Add event listeners to date fields for validation
-            const fechaEntrada = document.getElementById('modalFechaEntrada');
-            const fechaSalida = document.getElementById('modalFechaSalida');
-            const emailField = document.getElementById('modalEmail');
-
             if (fechaEntrada) {
-                fechaEntrada.addEventListener('change', calcularTotalModal);
+                fechaEntrada.min = new Date().toISOString().split('T')[0];
+                fechaEntrada.addEventListener('change', function() {
+                    if (fechaSalida) {
+                        fechaSalida.min = this.value;
+                    }
+                    calcularTotalModal();
+                });
             }
+
             if (fechaSalida) {
                 fechaSalida.addEventListener('change', calcularTotalModal);
             }
+
             if (emailField) {
                 emailField.addEventListener('blur', function() {
                     if (this.value && !validateEmail(this.value.trim())) {
-                        document.getElementById('emailError').textContent = 'Email inválido';
+                        document.getElementById('emailError').textContent = 'Email inválido.';
                         document.getElementById('emailError').classList.add('show');
                     } else {
                         document.getElementById('emailError').classList.remove('show');
@@ -2277,53 +2336,63 @@
                 });
             }
 
-            // Add event listeners to service quantity inputs
-            document.querySelectorAll('.servicio-input').forEach(input => {
+            document.querySelectorAll('.servicio-input').forEach((input) => {
                 input.addEventListener('change', calcularTotalModal);
                 input.addEventListener('input', calcularTotalModal);
             });
 
-            // Add event listeners to suite cards
-            document.querySelectorAll('.suite-card').forEach(card => {
+            document.querySelectorAll('.suite-card').forEach((card) => {
                 const selectBtn = card.querySelector('.suite-select-btn');
+                const openFromCard = (trigger) => {
+                    const suite = card.dataset.suite;
+                    const price = parseInt(card.dataset.price, 10);
+                    const serviceType = card.dataset.service || '';
+                    openReservaModal(suite, price, serviceType, trigger);
+                };
 
-                // Click on button
                 if (selectBtn) {
                     selectBtn.addEventListener('click', function(e) {
                         e.stopPropagation();
-                        const suite = card.dataset.suite;
-                        const price = parseInt(card.dataset.price);
-                        const serviceType = card.dataset.service || '';
-                        openReservaModal(suite, price, serviceType);
+                        openFromCard(selectBtn);
                     });
                 }
 
-                // Click on card itself
                 card.addEventListener('click', function(e) {
-                    if (e.target !== selectBtn && !selectBtn.contains(e.target)) {
-                        const suite = card.dataset.suite;
-                        const price = parseInt(card.dataset.price);
-                        const serviceType = card.dataset.service || '';
-                        openReservaModal(suite, price, serviceType);
+                    if (selectBtn && (e.target === selectBtn || selectBtn.contains(e.target))) {
+                        return;
+                    }
+                    openFromCard(selectBtn || card);
+                });
+
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openFromCard(selectBtn || card);
                     }
                 });
             });
 
-            // Add event listeners to category tabs
-            document.querySelectorAll('.categoria-tab').forEach(tab => {
+            document.querySelectorAll('.categoria-tab').forEach((tab) => {
                 tab.addEventListener('click', function() {
-                    const categoria = this.dataset.categoria;
+                    activateCategory(this);
+                });
 
-                    // Update active state
-                    document.querySelectorAll('.categoria-tab').forEach(t => {
-                        t.classList.remove('active');
-                        t.setAttribute('aria-selected', 'false');
-                    });
-                    this.classList.add('active');
-                    this.setAttribute('aria-selected', 'true');
+                tab.addEventListener('keydown', function(event) {
+                    const tabs = Array.from(document.querySelectorAll('.categoria-tab'));
+                    const currentIndex = tabs.indexOf(this);
+                    let nextIndex = currentIndex;
 
-                    // Call category change function
-                    cambiarCategoria(categoria, this);
+                    if (event.key === 'ArrowRight') {
+                        nextIndex = (currentIndex + 1) % tabs.length;
+                    } else if (event.key === 'ArrowLeft') {
+                        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                    } else {
+                        return;
+                    }
+
+                    event.preventDefault();
+                    tabs[nextIndex].focus();
+                    activateCategory(tabs[nextIndex]);
                 });
             });
         });
