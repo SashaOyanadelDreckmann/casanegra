@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
@@ -13,24 +12,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
 // Variables de entorno
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || 'AIzaSyA9Q0fTUrQ10rkwNchZsssvAmG1SfacbcY';
 const CALENDAR_EMAIL = process.env.CALENDAR_ID || 'casanegra.contacto.cl@gmail.com';
 const GMAIL_USER = process.env.GMAIL_USER || 'casanegra.contacto.cl@gmail.com';
 const GMAIL_PASSWORD = process.env.GMAIL_PASSWORD || '';
 
 // Validar que las credenciales están configuradas
-if (!GOOGLE_API_KEY || GOOGLE_API_KEY.includes('tu_api_key')) {
-  console.warn('GOOGLE_API_KEY no está configurada correctamente');
-}
 if (!GMAIL_PASSWORD || GMAIL_PASSWORD.includes('tu_contraseña')) {
   console.warn('GMAIL_PASSWORD no está configurada correctamente');
 }
-
-// Configurar Google Calendar
-const calendar = google.calendar({
-  version: 'v3',
-  auth: GOOGLE_API_KEY
-});
 
 // Configurar Nodemailer
 const transporter = nodemailer.createTransport({
@@ -49,37 +38,6 @@ app.post('/api/reservar', async (req, res) => {
     // Validar datos
     if (!suite || !checkIn || !checkOut || !email || !name) {
       return res.status(400).json({ error: 'Datos incompletos' });
-    }
-
-    // Crear evento en Google Calendar
-    const event = {
-      summary: `Reserva - ${suite}`,
-      description: `Huésped: ${name}\nTeléfono: ${phone}\nServicios: ${services || 'Ninguno'}\nTotal: $${total}`,
-      start: {
-        dateTime: new Date(checkIn).toISOString(),
-        timeZone: 'America/Santiago'
-      },
-      end: {
-        dateTime: new Date(checkOut).toISOString(),
-        timeZone: 'America/Santiago'
-      },
-      attendees: [
-        { email: CALENDAR_EMAIL },
-        { email: email }
-      ]
-    };
-
-    // Insertar evento en calendario
-    let calendarRes;
-    try {
-      calendarRes = await calendar.events.insert({
-        calendarId: CALENDAR_EMAIL,
-        resource: event
-      });
-      console.log('Evento creado en Google Calendar:', calendarRes.data.id);
-    } catch (calError) {
-      console.error('Error al crear evento en Google Calendar:', calError.message);
-      // Continuar de todos modos, el email es lo importante
     }
 
     // Enviar email de confirmación al usuario
@@ -138,8 +96,7 @@ app.post('/api/reservar', async (req, res) => {
     // Responder al cliente
     res.json({
       success: true,
-      message: 'Reserva confirmada exitosamente',
-      eventId: calendarRes?.data?.id || null
+      message: 'Reserva confirmada exitosamente'
     });
 
   } catch (error) {

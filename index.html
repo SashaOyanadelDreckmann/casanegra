@@ -1877,7 +1877,7 @@
             .then(res => res.json())
             .then(result => {
                 if (result.success) {
-                    alert('Reserva confirmada\n\nHemos enviado un email de confirmación a ' + email + '\n\nEsta reserva también se agregó a nuestro calendario');
+                    alert('Reserva confirmada\n\nHemos enviado un email de confirmación a ' + email);
                     closeReservaModal();
                 } else {
                     alert('Error al procesar la reserva: ' + result.error + '\n\nIntenta de nuevo o contacta directamente');
